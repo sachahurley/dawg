@@ -8,7 +8,9 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "ingest": "node dist/ingest-cli.js",
-    "dev": "tsc && node dist/index.js"
+    "dev": "tsc && node dist/index.js",
+    "chroma:install": "python3 -m venv .venv && . .venv/bin/activate && pip install -U pip && pip install -r requirements-chroma.txt",
+    "chroma:start": "bash scripts/start-chroma.sh"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,4 @@
+# Local ChromaDB server (used by the Node MCP client over HTTP).
+# Install into rag-server/.venv — see README and npm run chroma:install
+# Match the JS client (chromadb npm 3.x); server 1.x pairs with current API.
+chromadb>=1.5.0,<2.0.0

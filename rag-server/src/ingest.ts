@@ -4,6 +4,7 @@ import { join, relative, sep } from "node:path";
 import { chunkMarkdown } from "./chunker.js";
 import { COLLECTION_NAME, getChromaClient } from "./chroma.js";
 import { embedTexts } from "./embed.js";
+import { ollamaEmbeddingFunction } from "./ollama-embedding-function.js";
 import { getKnowledgeBaseRoot } from "./paths.js";
 
 const SKIP_DIR_NAMES = new Set([
@@ -71,6 +72,7 @@ export async function runIngest(options: IngestOptions = {}): Promise<{ files: n
 
   const collection = await client.createCollection({
     name: COLLECTION_NAME,
+    embeddingFunction: ollamaEmbeddingFunction,
     metadata: { description: "Sacha agent knowledge base" },
   });
 
@@ -111,7 +113,10 @@ export async function listIndexedSourcesSummary(): Promise<
   const client = getChromaClient();
   let collection;
   try {
-    collection = await client.getCollection({ name: COLLECTION_NAME });
+    collection = await client.getCollection({
+      name: COLLECTION_NAME,
+      embeddingFunction: ollamaEmbeddingFunction,
+    });
   } catch {
     return [];
   }

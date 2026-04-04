@@ -1,9 +1,13 @@
 # RAG / Chroma (vector store files; can be large)
 rag-server/.chromadb/
 
+# Python venv for Chroma CLI (npm run chroma:install)
+rag-server/.venv/
+
 # Node
 rag-server/node_modules/
 rag-server/dist/
+rag-server/*.log
 
 # OS
 .DS_Store

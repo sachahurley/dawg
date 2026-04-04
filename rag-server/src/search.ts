@@ -1,5 +1,6 @@
 import { COLLECTION_NAME, getChromaClient } from "./chroma.js";
 import { embedText } from "./embed.js";
+import { ollamaEmbeddingFunction } from "./ollama-embedding-function.js";
 
 export type SearchHit = {
   text: string;
@@ -12,7 +13,10 @@ export type SearchHit = {
 
 export async function searchKnowledge(query: string, topK: number, filterFolder?: string): Promise<SearchHit[]> {
   const client = getChromaClient();
-  const collection = await client.getCollection({ name: COLLECTION_NAME });
+  const collection = await client.getCollection({
+    name: COLLECTION_NAME,
+    embeddingFunction: ollamaEmbeddingFunction,
+  });
   const queryEmbedding = await embedText(query);
 
   const nResults = filterFolder ? Math.min(50, topK * 6) : topK;

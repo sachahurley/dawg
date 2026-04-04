@@ -17,13 +17,35 @@ Local knowledge base + **RAG MCP server** for Cursor and Claude Code. Embeddings
 ## Prerequisites
 
 1. **Node.js 20+** (for the MCP server)
-2. **Ollama** with an embedding model, e.g. `ollama pull nomic-embed-text`
-3. **ChromaDB server** on `localhost:8000` (the official JS client talks to a running server)
+2. **Python 3.9+** (3.11+ recommended; only for the local Chroma server CLI, isolated in `rag-server/.venv`)
+3. **Ollama** with an embedding model, e.g. `ollama pull nomic-embed-text`
+4. **ChromaDB** listening on **`localhost:8000`** (see below — this is the setup we standardize on)
 
-### Start Chroma (pick one)
+### Chroma (recommended): venv + `chroma run`
 
-- **pip:** `pip install chromadb` then `chroma run --path ./rag-server/.chromadb` (from repo root or point `--path` wherever you want data stored)
-- **Docker:** run the official `chromadb/chroma` image on port **8000** and mount a volume for persistence
+We use a **Python virtual environment inside `rag-server/`** so Chroma does not touch your system Python and you do not need Docker.
+
+**One-time setup:**
+
+```bash
+cd rag-server
+npm install
+npm run build
+npm run chroma:install
+```
+
+**Every time you work with RAG** (use a dedicated terminal tab; leave it running):
+
+```bash
+cd rag-server
+npm run chroma:start
+```
+
+That persists data under `rag-server/.chromadb/` (gitignored). The MCP server and `npm run ingest` talk to Chroma over HTTP on port **8000**.
+
+The venv pins **Chroma 1.5.x** so it matches the **chromadb** npm client. If you ever see embedding errors after upgrading one side, upgrade the other to keep them paired.
+
+**Optional:** If you already use Docker, you can run the official `chromadb/chroma` image on port **8000** instead and skip `chroma:install` / `chroma:start`.
 
 ## Build the MCP server
 
@@ -78,4 +100,4 @@ Add an MCP server with the same `command`, `args`, and `env` as in `.claude/mcp.
 
 ## Note on Chroma vs “fully embedded”
 
-Your original plan mentioned file-based Chroma **without** a separate process. In practice, the **JavaScript** Chroma client expects a **Chroma server** (CLI `chroma run` or Docker). Ollama stays separate for embeddings only.
+The **JavaScript** Chroma client uses a small **Chroma server** process (`chroma run` via the venv above, or Docker). That is separate from **Ollama**, which only handles embeddings. Both are local and free.
