@@ -1,0 +1,106 @@
+{
+  "parent_page_id": null,
+  "_comment": "Set parent_page_id to your Notion Skills parent page ID. Set notion_page_id for each skill after first sync.",
+  "skills": {
+    "a11y-audit": {
+      "notion_page_id": null,
+      "category": "Audit",
+      "description": "WCAG AA accessibility audit across all interactive components"
+    },
+    "audit-cascade": {
+      "notion_page_id": null,
+      "category": "Audit",
+      "description": "Trace blast radius of a token change across all layers"
+    },
+    "component-pipeline": {
+      "notion_page_id": null,
+      "category": "Pipeline",
+      "description": "End-to-end component workflow: Figma import → review → storybook → Figma viz → token sync"
+    },
+    "compose-screen": {
+      "notion_page_id": null,
+      "category": "Core",
+      "description": "Build a screen composition from existing components and presets"
+    },
+    "ds-health": {
+      "notion_page_id": null,
+      "category": "Core",
+      "description": "Full health check across all design system layers"
+    },
+    "figma-build": {
+      "notion_page_id": null,
+      "category": "Pipeline",
+      "description": "Build visual representations on the Figma canvas bound to variables"
+    },
+    "figma-import": {
+      "notion_page_id": null,
+      "category": "Pipeline",
+      "description": "Import a Figma component into code with pixel-perfect fidelity"
+    },
+    "generate-component-refs": {
+      "notion_page_id": null,
+      "category": "Core",
+      "description": "Generate portable component reference files for consumer projects"
+    },
+    "release-notes": {
+      "notion_page_id": null,
+      "category": "Core",
+      "description": "Generate changelog, bump version, sync to Notion, and tag release"
+    },
+    "review-component": {
+      "notion_page_id": null,
+      "category": "Audit",
+      "description": "Audit a component file for CLAUDE.md compliance"
+    },
+    "storybook-audit": {
+      "notion_page_id": null,
+      "category": "Audit",
+      "description": "Audit storybook stories/samples/presets for token compliance"
+    },
+    "storybook-check": {
+      "notion_page_id": null,
+      "category": "Audit",
+      "description": "Verify a storybook story follows page structure rules"
+    },
+    "sync-docs": {
+      "notion_page_id": null,
+      "category": "Core",
+      "description": "Push local docs/*.md files to their Notion pages"
+    },
+    "sync-skill-docs": {
+      "notion_page_id": null,
+      "category": "Core",
+      "description": "Push local SKILL.md files to their Notion pages"
+    },
+    "sync-specs": {
+      "notion_page_id": null,
+      "category": "Core",
+      "description": "Detect changed files and batch-update specs and Notion pages"
+    },
+    "sync-tokens": {
+      "notion_page_id": null,
+      "category": "Pipeline",
+      "description": "Audit codebase token definitions against the connected Figma file"
+    },
+    "token-audit": {
+      "notion_page_id": null,
+      "category": "Audit",
+      "description": "Verify design-tokens.md is in sync with actual foundation token files"
+    },
+    "token-pipeline": {
+      "notion_page_id": null,
+      "category": "Pipeline",
+      "description": "End-to-end token workflow: audit → sync to Figma → rebuild visualizations"
+    },
+    "update-component": {
+      "notion_page_id": null,
+      "category": "Core",
+      "description": "Edit a component and propagate changes through presets, stories, and screens"
+    },
+    "update-spec": {
+      "notion_page_id": null,
+      "category": "Core",
+      "description": "Generate or update a spec for any DS layer and sync to Notion"
+    }
+  }
+}

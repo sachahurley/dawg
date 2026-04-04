@@ -1,0 +1,9 @@
+# RAG / Chroma (vector store files; can be large)
+rag-server/.chromadb/
+
+# Node
+rag-server/node_modules/
+rag-server/dist/
+
+# OS
+.DS_Store
