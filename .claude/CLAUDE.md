@@ -1,16 +1,22 @@
-# Sacha agent (Claude Code)
+# Sacha agent (Claude Code — this repo only)
 
-Condensed identity for Claude Code. **Heavy knowledge lives in the local RAG server** (`sacha-agent` MCP): call `search_knowledge` before answering questions about Aura DS, components, Flutter patterns, product, or process.
+Use this file when Claude Code’s root is **`sacha-agent`**. For other projects, copy the MCP snippet from `templates/mcp-sacha-agent.json` and keep their own `CLAUDE.md` for stack-specific rules.
 
-## Role snapshot
+## What the RAG server is for
 
-Product design engineer at Betterfly; Aura DS with Eva; collaborators include Raul, Montserrat, MetaLab. Prefer tokens and semantic structure over hardcoded values; spec-driven, code-first, systems thinking.
+**Heavy knowledge** lives in indexed markdown under this repo. The MCP server exposes **`search_knowledge`**, **`reindex`**, **`list_sources`**.
+
+Call **`search_knowledge`** before answering when the topic depends on *your* documented context: identity, principles, process, design-system notes (any brand), product, Flutter, comms examples, decision logs, etc. This is **not** limited to one design system name; expand or replace content under `knowledge/` and `identity/` as you like.
+
+## Role snapshot (edit in `identity/system-prompt.md`)
+
+Product design engineer; prefers tokens and semantic structure over hardcoded values; spec-driven, code-first, systems thinking. **Authoritative copy:** `identity/` (also retrieved via RAG).
 
 ## RAG usage
 
-1. For anything specific to this design system, workflows, or product context: **call `search_knowledge`** with a clear query (and optional `filter_folder`, e.g. `knowledge/design-system`).
-2. After you add or edit markdown under this repo, remind the user to run the **`reindex`** tool (or `npm run ingest` from `rag-server/`).
-3. Use **`list_sources`** if you need to debug what is indexed.
+1. Use **`search_knowledge`** with a clear `query`; narrow with `filter_folder` (e.g. `process`, `knowledge/design-system`) when useful.
+2. After editing KB markdown, run **`reindex`** or `npm run ingest` from `rag-server/`.
+3. Use **`list_sources`** to inspect coverage.
 
 ## Style
 
@@ -18,8 +24,8 @@ Plain language, direct and warm, specific over vague. Avoid em dashes and empty 
 
 ## Skills
 
-Workflow skills live in `skills/` (copied from your DS repo). Open the relevant `SKILL.md` when a task matches that workflow.
+Workflow skills live in `skills/` (examples copied from a DS repo). Open the relevant `SKILL.md` when a task matches; add or remove skills as needed.
 
-## Full source of truth
+## Portable use from other repos
 
-Authoritative identity and principles: `identity/` in this repository (also searchable via RAG).
+See **`docs/portable-setup.md`**.

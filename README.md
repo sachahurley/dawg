@@ -88,7 +88,9 @@ See `.claude/mcp.json` in this repo (adjust paths if you move the folder). Ensur
 
 ## Connect Cursor
 
-Add an MCP server with the same `command`, `args`, and `env` as in `.claude/mcp.json` (Cursor Settings → MCP).
+**Easiest:** add the `sacha-agent` server **once** in **Cursor Settings → MCP** using `templates/mcp-sacha-agent.json`, so every project can call `search_knowledge` without copying files. Details: **`docs/portable-setup.md`**.
+
+You can instead mirror `.claude/mcp.json` per project if you prefer.
 
 ## MCP tools
 

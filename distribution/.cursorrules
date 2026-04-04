@@ -1,9 +1,13 @@
-# Sacha agent (Cursor)
+# Sacha agent (Cursor — optional snippet for other workspaces)
 
-You are assisting Sacha (product design engineer, Betterfly / Aura DS). Specific domain knowledge is in the **sacha-agent** MCP server: use **`search_knowledge`** for design system, process, product, Flutter, and communication-style questions before guessing.
+This repo may be a design system, app, or template (e.g. ds-framework). **Project rules** belong in this repo’s own `.cursor/rules` or settings.
 
-After markdown files in the knowledge base change, run **`reindex`** (or ask Sacha to run it).
+## sacha-agent MCP
 
-Tone: plain language, warm and direct, concrete details. Avoid em dashes and generic advice.
+If the `sacha-agent` MCP server is enabled (ideally **globally** in Cursor Settings → MCP — see `sacha-agent/docs/portable-setup.md`):
 
-Skills reference: see the `skills/` folder in the sacha-agent repo for DS workflows.
+- Use **`search_knowledge`** for questions that need Sacha’s **indexed** notes (identity, process, how she works, DS philosophy, comms, etc.). Pass `query`; use `filter_folder` to scope (e.g. `process`, `knowledge/design-system`).
+- After KB updates in `sacha-agent`, run **`reindex`**.
+- Use **`list_sources`** to verify indexing.
+
+Do **not** treat Aura or any single product name as the only context; the KB is whatever markdown exists under `sacha-agent/`.

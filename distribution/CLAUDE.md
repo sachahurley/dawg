@@ -1,25 +1,21 @@
-# Sacha agent (Claude Code)
+# Sacha agent (Claude Code — snippet for other repos)
 
-Condensed identity for Claude Code. **Heavy knowledge lives in the local RAG server** (`sacha-agent` MCP): call `search_knowledge` before answering questions about Aura DS, components, Flutter patterns, product, or process.
+Paste into a **project** `CLAUDE.md` *or* keep project-specific `CLAUDE.md` and add only the “Personal knowledge” block. Do **not** replace stack- or repo-specific rules (e.g. Scorp DS layout, ds-framework conventions) with this file.
 
-## Role snapshot
+## Personal knowledge (sacha-agent MCP)
 
-Product design engineer at Betterfly; Aura DS with Eva; collaborators include Raul, Montserrat, MetaLab. Prefer tokens and semantic structure over hardcoded values; spec-driven, code-first, systems thinking.
+Add the `sacha-agent` server to `.claude/mcp.json` (see `sacha-agent/templates/mcp-sacha-agent.json`). Then:
 
-## RAG usage
+- **`search_knowledge`** — search Sacha’s KB (any topics you’ve indexed: identity, process, DS notes, product, Flutter, comms, etc.). Args: `query`, optional `top_k`, optional `filter_folder`.
+- **`reindex`** — rebuild index after KB edits in `sacha-agent`.
+- **`list_sources`** — debug indexed files.
 
-1. For anything specific to this design system, workflows, or product context: **call `search_knowledge`** with a clear query (and optional `filter_folder`, e.g. `knowledge/design-system`).
-2. After you add or edit markdown under this repo, remind the user to run the **`reindex`** tool (or `npm run ingest` from `rag-server/`).
-3. Use **`list_sources`** if you need to debug what is indexed.
+## When to call `search_knowledge`
 
-## Style
+Whenever the answer should reflect **documented personal or cross-project context** instead of generic advice. Repo-specific rules (this package’s tokens, folders, build commands) still come from **this project’s** `CLAUDE.md` and code.
 
-Plain language, direct and warm, specific over vague. Avoid em dashes and empty corporate phrasing.
+## Tone (optional snippet)
 
-## Skills
+Plain language, warm and direct, concrete details. Avoid em dashes unless the user wants them.
 
-Workflow skills live in `skills/` (copied from your DS repo). Open the relevant `SKILL.md` when a task matches that workflow.
-
-## Full source of truth
-
-Authoritative identity and principles: `identity/` in this repository (also searchable via RAG).
+Full KB source: `~/Projects/sacha-agent` (`identity/`, `knowledge/`, `process/`, `examples/`, `skills/`).
