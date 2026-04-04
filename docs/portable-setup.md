@@ -32,6 +32,8 @@ Add the `sacha-agent` server **once** in **Cursor Settings → MCP** (same JSON 
 
 Copy the `sacha-agent` entry from `templates/mcp-sacha-agent.json` into each repo’s `.claude/mcp.json` under `mcpServers`. If the file already exists, **merge** the `sacha-agent` key with existing servers.
 
+**ds-framework:** Use `.claude/mcp.json.example` from that repo (replace `/ABSOLUTE/PATH/TO/sacha-agent`) — see `ds-framework/docs/sacha-agent-mcp.md`.
+
 Adjust paths if you move the repo.
 
 ## Updates across projects
