@@ -22,7 +22,7 @@ Copy 3–6 short bullets, each **under ~2 sentences**. Review quarterly.
 - [What assistants should not assume—e.g. generic palette/grid advice without checking active project config.]
 
 **5b. GitHub (paste verbatim if you use multiple logins)**  
-- Before **any** `gh repo create`, `git push` to a new `origin`, or `git remote add/set-url`: assistant must run **`gh auth status`** and **`gh api user/emails`**, then **state the active login and primary email in the chat** and wait if the wrong account is active. **Never** publish her personal **`sacha-agent`** work to the **Betterfly** GitHub login (`sacha-hurley` / `*@btf*`) unless she **explicitly** names that account for that specific command. Default owner: **`sachahurley`**.
+- Before **any** `gh repo create`, `git remote add/set-url`, or **`git push`**: run **`gh auth status`** and **`gh api user/emails`**, state **active login + primary email + remote URL + branch** in chat. For **`git push`**, she must reply **`yes`** in a **follow-up** message before the assistant runs push (every time). **Never** publish **`sacha-agent`** to the **Betterfly** login (`sacha-hurley` / `*@btf*`) unless she **explicitly** names that account for that command. Default: **`sachahurley`**.
 
 **6. Optional product context**  
 - [Only if stable for months: current product names, team shape, or timezone—nothing secret or volatile.]

@@ -1,5 +1,5 @@
 ---
-description: Always verify GitHub CLI login and email before repo create/push/remote; never use wrong Betterfly account by default.
+description: Verify gh login + email before GitHub actions; require follow-up "yes" before every git push; block Betterfly account by default.
 alwaysApply: true
 ---
 
@@ -21,6 +21,19 @@ Write out, in plain text:
 
 - **Active GitHub login:** (from `gh api user` while that account is active — the line marked **Active account: true** in `gh auth status` must match)
 - **Email(s) on that login:** (from `gh api user/emails` — at least **primary**; list others if multiple)
+- **If `git push`:** also state **remote name + URL** (e.g. `git remote get-url origin`) and **branch** you would push.
+
+## 2b. Explicit **yes** required before `git push` (every time)
+
+After steps 1–2, **do not run `git push` yet.** End your turn with a clear line such as:
+
+**“Reply `yes` to push to [remote URL] as [login].”**
+
+Only after she sends a **new message** whose meaning is clearly confirmation (e.g. `yes`, `yes push`, `confirmed`) may you run **`git push`** for that specific push. If she says anything ambiguous, ask again.
+
+This applies to **every** push, including small doc-only commits. **No exceptions** unless she cancels the gate for that session in writing (e.g. “skip the yes step for the rest of this chat” — then honor only within that conversation).
+
+`git commit` (local only) does **not** require this step.
 
 ## 3. Hard blocks (do not proceed without her explicit override for *that command*)
 
