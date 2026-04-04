@@ -25,10 +25,10 @@ Canonical **Chroma setup** (no Docker): Python **venv inside `rag-server/`** + `
 
 - [x] `rag-server/` TypeScript project (MCP + chunk + Ollama embed + Chroma)
 - [x] Tools: `search_knowledge`, `reindex`, `list_sources`
-- [ ] **You:** `cd rag-server && npm install && npm run build`
-- [ ] **You:** `npm run chroma:install` (creates `.venv`, installs **Chroma server 1.5.x** + `chroma` CLI — matches the JS client)
-- [ ] **You:** `npm run chroma:start` (leave running)
-- [ ] **You:** first ingest — `KNOWLEDGE_BASE_PATH=… npm run ingest` or MCP `reindex`
+- [x] `cd rag-server && npm install && npm run build`
+- [x] `npm run chroma:install` (creates `.venv`, installs **Chroma server 1.5.x** + `chroma` CLI — matches the JS client)
+- [x] Chroma running on `localhost:8000` (start with `npm run chroma:start` when needed)
+- [x] First ingest completed (`38` files, `215` chunks as of last run)
 - [ ] **You:** test `search_knowledge` from Cursor MCP
 
 ### 1.4 Claude Code
