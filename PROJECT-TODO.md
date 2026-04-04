@@ -8,9 +8,10 @@ Canonical **Chroma setup** (no Docker): Python **venv inside `rag-server/`** + `
 
 ### 1.1 Install dependencies (your machine)
 
-- [ ] Install Ollama (https://ollama.com or `brew install ollama`)
-- [ ] `ollama pull nomic-embed-text`
-- [ ] `ollama list` (verify model)
+- [x] Install Ollama (`brew install ollama`)
+- [x] `ollama pull nomic-embed-text`
+- [x] `ollama list` (verify model)
+- [x] Ollama background service: `brew services start ollama` (runs at login)
 - [ ] Node.js 20+ (`node -v`)
 - [ ] Python 3.11+ (`python3 -v`) — for Chroma CLI in venv
 
