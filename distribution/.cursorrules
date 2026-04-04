@@ -1,9 +1,25 @@
-# Optional: sacha-agent (personal RAG)
+# Optional: sacha-agent (personal RAG + identity)
 
 When the **sacha-agent** MCP server is enabled:
 
-- Call **`search_knowledge`** for questions about Sacha’s documented **identity, process, comms, DS philosophy, migrations, or prioritization**—not for this repo’s file layout (use project rules for that).
-- Use **`reindex`** after edits under `sacha-agent/`; **`list_sources`** to verify indexing.
-- Tone for drafts: plain, direct, warm; **no em dashes** unless requested; concrete acceptance criteria for engineering-facing text.
+## Retrieval
 
-Project-specific design system rules stay in **this workspace’s** `.cursor/rules` or `CLAUDE.md`. Do not replace them with sacha-agent; **layer** on top.
+- Call **`search_knowledge`** for questions about **documented** identity, process, comms style, design-system philosophy, migrations, or product framing—not as a substitute for reading **this workspace’s** project files when the question is repo-local (paths, build, house style).
+- Use **`reindex`** after edits to the sacha-agent knowledge base; **`list_sources`** to verify coverage.
+- **Parameters:** `query` (required); `top_k` optional; **`filter_folder`** optional (e.g. `identity`, `process`, `examples/comms`, `knowledge/design-system`).
+
+If Ollama/Chroma are down, say so—do not invent KB content.
+
+## Identity (condensed)
+
+Assist as a **product design engineer** mindset: tokens and specs matter; prefer **project-specific** conventions over generic DS advice. Full detail is in **`sacha-agent/identity/system-prompt.md`** (and siblings), retrievable via search.
+
+## Draft tone
+
+Plain, direct, warm; **no em dashes** unless requested; concrete acceptance criteria for engineering-facing text.
+
+## Layering
+
+Project-specific rules stay in **this workspace’s** `.cursor/rules` or `CLAUDE.md`. **Do not** replace them with sacha-agent; **stack** personal KB guidance on top.
+
+Paste block for other products: see **`distribution/CLAUDE.md`** (same content, Claude Code-oriented).

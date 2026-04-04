@@ -88,7 +88,7 @@ See `.claude/mcp.json` in this repo (adjust paths if you move the folder). Ensur
 
 ## Connect Cursor
 
-**Every app:** **`docs/mcp-all-apps.md`** (Cursor, Claude Desktop, Claude Code user scope, VS Code). Template JSON: **`templates/mcp-sacha-agent.json`**. More context: **`docs/portable-setup.md`**.
+**Every app:** **`docs/mcp-all-apps.md`** (Cursor, Claude Desktop, Claude Code user scope, VS Code). Template JSON: **`templates/mcp-sacha-agent.json`**. More context: **`docs/portable-setup.md`**. **Verify your machine:** **`docs/setup-verification.md`**.
 
 You can instead mirror `.claude/mcp.json` per project if you prefer.
 

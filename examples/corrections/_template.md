@@ -1,17 +1,3 @@
-# Correction: YYYY-MM-DD
+# Deprecated: use `TEMPLATE.md`
 
-## What Claude said
-
-[paste the wrong or generic answer]
-
-## What was wrong
-
-[specific problem]
-
-## The right answer
-
-[what it should have said]
-
-## Why
-
-[context the model was missing]
+Use **`TEMPLATE.md`** in this folder (same sections, canonical name). This file is kept so old links still resolve.

@@ -12,8 +12,8 @@ Canonical **Chroma setup** (no Docker): Python **venv inside `rag-server/`** + `
 - [x] `ollama pull nomic-embed-text`
 - [x] `ollama list` (verify model)
 - [x] Ollama background service: `brew services start ollama` (runs at login)
-- [ ] Node.js 20+ (`node -v`) — verify locally
-- [ ] Python 3.9+ for Chroma venv (`python3 -v`) — verify locally
+- [x] Node.js 20+ (`node -v`) — verified on dev machine (re-check after upgrades)
+- [x] Python 3.9+ for Chroma venv (`python3 -v`) — verified on dev machine
 
 ### 1.2 Knowledge base structure
 
@@ -29,16 +29,17 @@ Canonical **Chroma setup** (no Docker): Python **venv inside `rag-server/`** + `
 - [x] `npm run chroma:install`
 - [x] Chroma on `localhost:8000` when working (`npm run chroma:start`)
 - [x] Ingest / reindex run after major KB updates
-- [ ] **You:** confirm `search_knowledge` in Cursor MCP chat
+- [ ] **You:** confirm `search_knowledge` in Cursor MCP chat — steps in **`docs/setup-verification.md`** (section 3)
 
 ### 1.4 Claude Code
 
 - [x] `.claude/mcp.json` + `.claude/CLAUDE.md` in this repo
-- [ ] **You:** open another repo with merged MCP and confirm tools list
+- [ ] **You:** open another repo with merged MCP and confirm tools list — **`docs/setup-verification.md`** (section 4)
 
 ### 1.5 Cursor
 
-- [ ] **You:** global or per-project MCP (see `templates/mcp-sacha-agent.json`)
+- [x] This repo includes **`.cursor/mcp.json`** + **`templates/mcp-sacha-agent.json`** (merge or mirror for global MCP)
+- [ ] **You:** confirm global Cursor MCP if you want sacha-agent in every workspace — **`docs/setup-verification.md`** (section 3)
 
 ---
 
@@ -64,11 +65,11 @@ Canonical **Chroma setup** (no Docker): Python **venv inside `rag-server/`** + `
 
 ## Phase 4 — Judgment layer
 
-- [x] `examples/decisions/` — four annotated decisions + README
-- [x] `examples/corrections/` — sample correction + `_template.md`
-- [x] `examples/comms/` — four audience samples + README
+- [x] `examples/decisions/` — annotated decisions (001–008) + `TEMPLATE.md` + README
+- [x] `examples/corrections/` — multiple corrections + `TEMPLATE.md` (`_template.md` redirects)
+- [x] `examples/comms/` — audience samples + `TEMPLATE.md` + README
 - [x] `examples/before-after/` — spec tightening example + README
-- [ ] **Ongoing:** add real corrections weekly; grow decision log
+- [ ] **Ongoing:** add real corrections as they happen; grow decision log; **`reindex`** after batches
 
 ---
 
@@ -82,8 +83,8 @@ Canonical **Chroma setup** (no Docker): Python **venv inside `rag-server/`** + `
 
 ## Phase 6 — Maintenance
 
-- [ ] Tune chunk size / `top_k` from real queries
-- [ ] Habit: corrections + decisions + **reindex**
+- [ ] Tune chunk size / `top_k` from real queries — log in **`docs/rag-tuning-notes.md`**
+- [ ] Habit: corrections + decisions + **`reindex`** (or `npm run ingest`) after batches — see **`docs/setup-verification.md`**
 - [ ] Monthly: prune outdated KB pages; refresh identity if needed
 
 ---

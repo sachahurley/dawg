@@ -1,12 +1,31 @@
-# Claude.ai memory edits (short list to copy)
+# Claude.ai memory — what to store (reference list)
 
-Paste into **Claude.ai → Memory** as small, stable facts. **Do not** paste the whole knowledge base; RAG holds that.
+Use **Claude.ai → Memory** for a **small, stable** snapshot of who you are and how you like to work. **Do not** paste the whole knowledge base; the **sacha-agent** RAG MCP holds long-form docs.
 
-Suggested edits (customize):
+Copy 3–6 short bullets, each **under ~2 sentences**. Review quarterly.
 
-1. **Name and role:** Sacha; product design engineer; works across Flutter (e.g. Betterfly/Aura) and React design systems (Scorp, ds-framework).
-2. **Writing:** No em dashes in professional drafts; prefer bullets and clear asks; direct but warm.
-3. **Technical bias:** Tokens and semantic layers over hardcoded visual values; code-first when code and Figma disagree unless a formal design change is in flight.
-4. **Tools:** Uses Cursor and Claude Code; personal KB via **sacha-agent** MCP (`search_knowledge`) when available.
+## Suggested categories (customize each line)
 
-Review quarterly; keep each bullet under ~2 sentences.
+**1. Name and role**  
+- [Name]; [title or how you describe the role]; [primary domains, e.g. design systems, Flutter, React DS].
+
+**2. Communication**  
+- [Tone: e.g. direct but warm; bullets over long prose; things to avoid in drafts].
+
+**3. Technical defaults**  
+- [e.g. Semantic tokens in components; code vs Figma when they disagree; audit before big token changes].
+
+**4. Tools**  
+- [e.g. Cursor, Claude Code; personal KB via sacha-agent MCP `search_knowledge` when connected].
+
+**5. Boundaries**  
+- [What assistants should not assume—e.g. generic palette/grid advice without checking active project config.]
+
+**6. Optional product context**  
+- [Only if stable for months: current product names, team shape, or timezone—nothing secret or volatile.]
+
+## What stays out of Memory
+
+- Full process docs (those live in `process/` + RAG).
+- Long decision logs (use `examples/decisions/`).
+- Repo-specific paths that change every sprint (use the **active project’s** `CLAUDE.md`).
