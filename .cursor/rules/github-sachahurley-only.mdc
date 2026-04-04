@@ -1,0 +1,13 @@
+---
+description: Never use GitHub account sacha-hurley or push to repos under that user for this project.
+alwaysApply: true
+---
+
+# GitHub account (hard boundary)
+
+For **this repo** and any git/GitHub CLI work the user asks for:
+
+1. **Do not** create repos, push, open PRs, or run `gh` actions that target the GitHub user **`sacha-hurley`** or any identity tied to the **`shurley` @ `btf`** email (or that account’s orgs/repos).
+2. **Before** any `gh repo create`, `gh pr`, `git push`, or adding `origin`, run **`gh auth status`** and confirm the **active** account is **`sachahurley`**. If the active account is `sacha-hurley`, **stop** and tell the user to run `gh auth switch -u sachahurley` (or fix auth); do not proceed with push/create.
+3. **Do not** set `origin` to a URL containing `github.com/sacha-hurley/`.
+4. If the user asks to publish this project, use **`sachahurley`** only unless they explicitly name a different allowed owner.
