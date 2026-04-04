@@ -1,13 +1,36 @@
 ---
-description: Never use GitHub account sacha-hurley or push to repos under that user for this project.
+description: Always verify GitHub CLI login and email before repo create/push/remote; never use wrong Betterfly account by default.
 alwaysApply: true
 ---
 
-# GitHub account (hard boundary)
+# GitHub identity check (required every time)
 
-For **this repo** and any git/GitHub CLI work the user asks for:
+Before running **any** of: `gh repo create`, `gh repo delete`, `gh pr create`, `git push` (including `-u origin`), `git remote add`, or `git remote set-url` — **in this project or when she asks you to publish sacha-agent**:
 
-1. **Do not** create repos, push, open PRs, or run `gh` actions that target the GitHub user **`sacha-hurley`** or any identity tied to the **`shurley` @ `btf`** email (or that account’s orgs/repos).
-2. **Before** any `gh repo create`, `gh pr`, `git push`, or adding `origin`, run **`gh auth status`** and confirm the **active** account is **`sachahurley`**. If the active account is `sacha-hurley`, **stop** and tell the user to run `gh auth switch -u sachahurley` (or fix auth); do not proceed with push/create.
-3. **Do not** set `origin` to a URL containing `github.com/sacha-hurley/`.
-4. If the user asks to publish this project, use **`sachahurley`** only unless they explicitly name a different allowed owner.
+## 1. Gather facts (run these; do not skip)
+
+```bash
+gh auth status
+gh api user -q .login
+gh api user/emails
+```
+
+## 2. Tell her explicitly in your message
+
+Write out, in plain text:
+
+- **Active GitHub login:** (from `gh api user` while that account is active — the line marked **Active account: true** in `gh auth status` must match)
+- **Email(s) on that login:** (from `gh api user/emails` — at least **primary**; list others if multiple)
+
+## 3. Hard blocks (do not proceed without her explicit override for *that command*)
+
+- If the active login is **`sacha-hurley`** **or** any returned email is clearly **Betterfly / work** (e.g. addresses on the **`btf`** domain she uses for that job): **stop.** Do not create repos, push, or change `origin` toward that identity **unless she literally says in this conversation** that she wants **that** account used **for this specific action**.
+- Default for **sacha-agent** and her personal work: **`sachahurley`** only. Do not set `origin` to `github.com/sacha-hurley/…` unless she explicitly asked for that URL for that step.
+
+## 4. If the wrong account is active
+
+Tell her to run `gh auth switch -u sachahurley` (or the account she names), re-run the checks, and confirm again **before** you run publish commands.
+
+## 5. No silent assumptions
+
+Never infer “this must be her account” from folder name or past chats. **The CLI active account is the only source of truth** for what GitHub will use.

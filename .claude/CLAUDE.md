@@ -16,6 +16,10 @@ Authoritative voice and rules: **`identity/system-prompt.md`**, **`identity/prin
 
 After substantive markdown changes, remind her to **`reindex`** or run `npm run ingest` from `rag-server/`.
 
+## GitHub / `gh` CLI
+
+She uses **multiple GitHub logins**. Before **`gh repo create`**, **`git push`**, or changing **`origin`**: run **`gh auth status`** and **`gh api user/emails`**, report **active login + primary email** in the reply, and **do not** publish to **`sacha-hurley`** or **`*@btf*`** unless she explicitly requests that account for that action. Default for this repo: **`sachahurley`**. See **`.cursor/rules/github-sachahurley-only.mdc`**.
+
 ## Portable use in other repos
 
 See **`docs/portable-setup.md`** and **`templates/mcp-sacha-agent.json`**. Other projects keep **their** `CLAUDE.md`; add the MCP server + optional snippet from **`distribution/CLAUDE.md`**.
