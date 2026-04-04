@@ -1,5 +1,7 @@
 # Using sacha-agent from any project
 
+**See also:** [`mcp-all-apps.md`](./mcp-all-apps.md) — Cursor, Claude Desktop, Claude Code (user scope), VS Code.
+
 The RAG index lives in **one place** (`sacha-agent`). Other repos (Scorp DS, ds-framework, app code, etc.) only need to **point the MCP client** at the built server. You do **not** copy the knowledge base into each repo.
 
 ## Why you saw “Aura DS” in prompts
