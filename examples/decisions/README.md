@@ -1,3 +1,5 @@
 # Decision log
 
-📝 **Placeholder:** Annotated situations, options, choices, and reasoning (Phase 4.1). These are high-value retrieval targets.
+Annotated decisions live as separate markdown files (situation, options, choice, why).
+
+Add new files with the next free number or a descriptive slug. After a batch, **`reindex`** with `filter_folder` `examples/decisions`.

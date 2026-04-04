@@ -1,3 +1,5 @@
-# Flutter patterns
+# Flutter knowledge
 
-📝 **Placeholder:** Widget composition, state management, theming conventions (Phase 3.4).
+- **`patterns.md`** — Composition, theming, state, handoff notes.
+
+Add codebase-specific gotchas (navigation, localization, platform views) as separate files when useful.

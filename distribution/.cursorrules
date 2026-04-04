@@ -1,13 +1,9 @@
-# Sacha agent (Cursor — optional snippet for other workspaces)
+# Optional: sacha-agent (personal RAG)
 
-This repo may be a design system, app, or template (e.g. ds-framework). **Project rules** belong in this repo’s own `.cursor/rules` or settings.
+When the **sacha-agent** MCP server is enabled:
 
-## sacha-agent MCP
+- Call **`search_knowledge`** for questions about Sacha’s documented **identity, process, comms, DS philosophy, migrations, or prioritization**—not for this repo’s file layout (use project rules for that).
+- Use **`reindex`** after edits under `sacha-agent/`; **`list_sources`** to verify indexing.
+- Tone for drafts: plain, direct, warm; **no em dashes** unless requested; concrete acceptance criteria for engineering-facing text.
 
-If the `sacha-agent` MCP server is enabled (ideally **globally** in Cursor Settings → MCP — see `sacha-agent/docs/portable-setup.md`):
-
-- Use **`search_knowledge`** for questions that need Sacha’s **indexed** notes (identity, process, how she works, DS philosophy, comms, etc.). Pass `query`; use `filter_folder` to scope (e.g. `process`, `knowledge/design-system`).
-- After KB updates in `sacha-agent`, run **`reindex`**.
-- Use **`list_sources`** to verify indexing.
-
-Do **not** treat Aura or any single product name as the only context; the KB is whatever markdown exists under `sacha-agent/`.
+Project-specific design system rules stay in **this workspace’s** `.cursor/rules` or `CLAUDE.md`. Do not replace them with sacha-agent; **layer** on top.

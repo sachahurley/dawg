@@ -12,84 +12,82 @@ Canonical **Chroma setup** (no Docker): Python **venv inside `rag-server/`** + `
 - [x] `ollama pull nomic-embed-text`
 - [x] `ollama list` (verify model)
 - [x] Ollama background service: `brew services start ollama` (runs at login)
-- [ ] Node.js 20+ (`node -v`)
-- [ ] Python 3.11+ (`python3 -v`) — for Chroma CLI in venv
+- [ ] Node.js 20+ (`node -v`) — verify locally
+- [ ] Python 3.9+ for Chroma venv (`python3 -v`) — verify locally
 
 ### 1.2 Knowledge base structure
 
 - [x] Folder layout under `sacha-agent/`
-- [x] Placeholder `.md` files in each section
-- [x] Aura DS skills copied into `skills/` (from `scorp-ds`)
+- [x] Content across identity, knowledge, process, examples (expanded)
+- [x] Skills under `skills/` (from DS repo)
 
 ### 1.3 RAG MCP server
 
 - [x] `rag-server/` TypeScript project (MCP + chunk + Ollama embed + Chroma)
 - [x] Tools: `search_knowledge`, `reindex`, `list_sources`
-- [x] `cd rag-server && npm install && npm run build`
-- [x] `npm run chroma:install` (creates `.venv`, installs **Chroma server 1.5.x** + `chroma` CLI — matches the JS client)
-- [x] Chroma running on `localhost:8000` (start with `npm run chroma:start` when needed)
-- [x] First ingest completed (`38` files, `215` chunks as of last run)
-- [ ] **You:** test `search_knowledge` from Cursor MCP
+- [x] `npm install && npm run build` in `rag-server`
+- [x] `npm run chroma:install`
+- [x] Chroma on `localhost:8000` when working (`npm run chroma:start`)
+- [x] Ingest / reindex run after major KB updates
+- [ ] **You:** confirm `search_knowledge` in Cursor MCP chat
 
 ### 1.4 Claude Code
 
 - [x] `.claude/mcp.json` + `.claude/CLAUDE.md` in this repo
-- [ ] **You:** open this repo in Claude Code and confirm MCP tools appear
-- [ ] **You:** ask a question that forces `search_knowledge`
+- [ ] **You:** open another repo with merged MCP and confirm tools list
 
 ### 1.5 Cursor
 
-- [ ] **You:** add MCP server (same env/args as `.claude/mcp.json`)
-- [ ] **You:** smoke-test chat + tools
+- [ ] **You:** global or per-project MCP (see `templates/mcp-sacha-agent.json`)
 
 ---
 
 ## Phase 2 — Identity layer
 
-- [ ] `identity/system-prompt.md` — full master identity (replace placeholder)
-- [ ] `identity/principles.md`
-- [ ] `identity/communication-style.md`
-- [ ] Reindex after edits
-- [ ] Regenerate/sync `distribution/CLAUDE.md` and `distribution/.cursorrules` from identity (Phase 5)
+- [x] `identity/system-prompt.md` — master identity (first full draft)
+- [x] `identity/principles.md`
+- [x] `identity/communication-style.md`
+- [ ] **Ongoing:** refine as role or products shift; **reindex** after edits
 
 ---
 
 ## Phase 3 — Knowledge layer
 
-- [ ] `knowledge/design-system/` — tokens, specs, pipeline, gotchas, audit criteria
-- [ ] `knowledge/product/` — PRDs, roadmap, prioritization
-- [ ] `process/` — handoff model, commands, migration playbook, reviews, co-ownership
-- [ ] `knowledge/flutter/` — patterns, state, theming
-- [ ] `examples/comms/` — templates per audience
-- [ ] Run `reindex` per subtree as you batch content (optional `filter_folder` in search)
+- [x] `knowledge/design-system/` — starter (`token-architecture.md` + README)
+- [x] `knowledge/product/` — `prioritization.md` + README
+- [x] `process/` — workflows, review checklist, migration playbook
+- [x] `knowledge/flutter/` — `patterns.md` + README
+- [x] `knowledge/tools/` — `toolchain.md` + README
+- [ ] **Ongoing:** add PRDs, brand-specific specs, real gotchas; **reindex** per batch
 
 ---
 
 ## Phase 4 — Judgment layer
 
-- [ ] `examples/decisions/` — 5–10+ annotated decisions
-- [ ] `examples/corrections/` — use `_template.md`; add entries weekly
-- [ ] Before/after examples under `examples/` as you create them
-- [ ] Reindex after batches
+- [x] `examples/decisions/` — four annotated decisions + README
+- [x] `examples/corrections/` — sample correction + `_template.md`
+- [x] `examples/comms/` — four audience samples + README
+- [x] `examples/before-after/` — spec tightening example + README
+- [ ] **Ongoing:** add real corrections weekly; grow decision log
 
 ---
 
 ## Phase 5 — Distribution
 
-- [ ] Refresh `distribution/CLAUDE.md` and `.cursorrules` from `identity/` when identity stabilizes
-- [ ] `distribution/memory-edits.md` → apply short prefs in Claude.ai only
-- [ ] Copy distribution files into other repos if needed
+- [x] `distribution/CLAUDE.md`, `.cursorrules`, `memory-edits.md` refreshed (snippets for other repos + Claude.ai)
+- [ ] **You:** paste memory bullets into Claude.ai if desired
+- [ ] **You:** merge `distribution/CLAUDE.md` snippet into any repo that should load personal layer in Claude Code
 
 ---
 
 ## Phase 6 — Maintenance
 
-- [ ] Tune chunk size / `top_k` based on real queries
-- [ ] Weekly: corrections + decisions + spec updates + reindex
-- [ ] Monthly: prune KB, update system prompt, regenerate distribution configs
+- [ ] Tune chunk size / `top_k` from real queries
+- [ ] Habit: corrections + decisions + **reindex**
+- [ ] Monthly: prune outdated KB pages; refresh identity if needed
 
 ---
 
-## Optional: Docker Chroma (advanced)
+## Optional: Docker Chroma
 
-If you prefer not to use Python: run the official `chromadb/chroma` image on port **8000** and drop `chroma:install` / `chroma:start`. The Node client stays the same.
+If you prefer not to use Python: run the official `chromadb/chroma` image on port **8000** and skip `chroma:install` / `chroma:start`.

@@ -1,21 +1,24 @@
-# Sacha agent (Claude Code — snippet for other repos)
+# Personal agent layer (paste or merge into project CLAUDE.md)
 
-Paste into a **project** `CLAUDE.md` *or* keep project-specific `CLAUDE.md` and add only the “Personal knowledge” block. Do **not** replace stack- or repo-specific rules (e.g. Scorp DS layout, ds-framework conventions) with this file.
+Projects keep their **own** rules (Scorp DS, ds-framework, app repos). This block is only for **Sacha’s** cross-cutting context via MCP.
 
-## Personal knowledge (sacha-agent MCP)
+## MCP: sacha-agent
 
-Add the `sacha-agent` server to `.claude/mcp.json` (see `sacha-agent/templates/mcp-sacha-agent.json`). Then:
+With the `sacha-agent` server enabled (`templates/mcp-sacha-agent.json` or per-repo `mcp.json`):
 
-- **`search_knowledge`** — search Sacha’s KB (any topics you’ve indexed: identity, process, DS notes, product, Flutter, comms, etc.). Args: `query`, optional `top_k`, optional `filter_folder`.
-- **`reindex`** — rebuild index after KB edits in `sacha-agent`.
-- **`list_sources`** — debug indexed files.
+1. **`search_knowledge`** before answering questions about her **process, principles, comms style, token philosophy, migrations, or product framing** when those answers should match her KB—not generic web defaults.
+2. **`reindex`** after KB changes in the `sacha-agent` repo.
+3. **`list_sources`** to debug coverage.
 
-## When to call `search_knowledge`
+**Parameters:** `query` (required); `top_k` (optional); `filter_folder` (optional path prefix, e.g. `identity`, `process`, `examples/comms`).
 
-Whenever the answer should reflect **documented personal or cross-project context** instead of generic advice. Repo-specific rules (this package’s tokens, folders, build commands) still come from **this project’s** `CLAUDE.md` and code.
+## Voice
 
-## Tone (optional snippet)
+Plain language, warm and direct, specific over vague. **No em dashes** in outward copy unless she asks. Avoid corporate filler.
 
-Plain language, warm and direct, concrete details. Avoid em dashes unless the user wants them.
+## Repo-specific vs personal
 
-Full KB source: `~/Projects/sacha-agent` (`identity/`, `knowledge/`, `process/`, `examples/`, `skills/`).
+- **This project’s** `CLAUDE.md`, `ds-config`, and code win for **file paths, prefixes, stack, and house rules**.
+- **sacha-agent** wins for **how she decides, communicates, and prioritizes** when documented there.
+
+Full identity: `sacha-agent/identity/system-prompt.md` (also in RAG).

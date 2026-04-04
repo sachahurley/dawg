@@ -1,3 +1,8 @@
 # Communication examples
 
-📝 **Placeholder:** Example messages to engineers, PMs, MetaLab, Eva (Phase 3.5).
+Sample messages by audience; edit voice as you like. **`reindex`** after adding files.
+
+- **`to-engineers-spec-ask.md`**
+- **`to-pm-tradeoff.md`**
+- **`to-metalab-feedback.md`**
+- **`to-eva-ds-sync.md`**

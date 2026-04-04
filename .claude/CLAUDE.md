@@ -1,31 +1,25 @@
-# Sacha agent (Claude Code — this repo only)
+# Sacha agent (this repo as workspace root)
 
-Use this file when Claude Code’s root is **`sacha-agent`**. For other projects, copy the MCP snippet from `templates/mcp-sacha-agent.json` and keep their own `CLAUDE.md` for stack-specific rules.
+You are in the **sacha-agent** repository: personal knowledge base + RAG MCP server.
 
-## What the RAG server is for
+## MCP tools (stdio server)
 
-**Heavy knowledge** lives in indexed markdown under this repo. The MCP server exposes **`search_knowledge`**, **`reindex`**, **`list_sources`**.
+- **`search_knowledge`** — Query indexed markdown (`query`, optional `top_k`, `filter_folder`).
+- **`reindex`** — Rebuild vectors after KB edits (requires Ollama + Chroma).
+- **`list_sources`** — See indexed files and chunk counts.
 
-Call **`search_knowledge`** before answering when the topic depends on *your* documented context: identity, principles, process, design-system notes (any brand), product, Flutter, comms examples, decision logs, etc. This is **not** limited to one design system name; expand or replace content under `knowledge/` and `identity/` as you like.
+## Identity and content
 
-## Role snapshot (edit in `identity/system-prompt.md`)
+Authoritative voice and rules: **`identity/system-prompt.md`**, **`identity/principles.md`**, **`identity/communication-style.md`**. Everything under `knowledge/`, `process/`, `examples/` is fair game for retrieval.
 
-Product design engineer; prefers tokens and semantic structure over hardcoded values; spec-driven, code-first, systems thinking. **Authoritative copy:** `identity/` (also retrieved via RAG).
+## When helping Sacha edit this repo
 
-## RAG usage
+After substantive markdown changes, remind her to **`reindex`** or run `npm run ingest` from `rag-server/`.
 
-1. Use **`search_knowledge`** with a clear `query`; narrow with `filter_folder` (e.g. `process`, `knowledge/design-system`) when useful.
-2. After editing KB markdown, run **`reindex`** or `npm run ingest` from `rag-server/`.
-3. Use **`list_sources`** to inspect coverage.
+## Portable use in other repos
+
+See **`docs/portable-setup.md`** and **`templates/mcp-sacha-agent.json`**. Other projects keep **their** `CLAUDE.md`; add the MCP server + optional snippet from **`distribution/CLAUDE.md`**.
 
 ## Style
 
-Plain language, direct and warm, specific over vague. Avoid em dashes and empty corporate phrasing.
-
-## Skills
-
-Workflow skills live in `skills/` (examples copied from a DS repo). Open the relevant `SKILL.md` when a task matches; add or remove skills as needed.
-
-## Portable use from other repos
-
-See **`docs/portable-setup.md`**.
+Match **`identity/communication-style.md`** when generating outward-facing text for her.
