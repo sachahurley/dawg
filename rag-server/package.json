@@ -1,5 +1,5 @@
 {
-  "name": "sacha-agent-rag-server",
+  "name": "dawg-rag-server",
   "version": "1.0.0",
   "private": true,
   "type": "module",

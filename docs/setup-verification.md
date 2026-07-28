@@ -15,17 +15,17 @@ ollama list      # expect nomic-embed-text (or your configured embed model)
 In **terminal A** (leave running while using RAG):
 
 ```bash
-cd /path/to/sacha-agent/rag-server
+cd /path/to/dawg/rag-server
 npm run chroma:start
 ```
 
 In **terminal B**:
 
 ```bash
-cd /path/to/sacha-agent/rag-server
+cd /path/to/dawg/rag-server
 npm install
 npm run build
-export KNOWLEDGE_BASE_PATH="/path/to/sacha-agent"
+export KNOWLEDGE_BASE_PATH="/path/to/dawg"
 npm run ingest
 ```
 
@@ -33,8 +33,8 @@ Expect ingest to report chunk counts with no errors.
 
 ## 3. Cursor MCP
 
-1. Open **Cursor Settings → MCP** (or merge `templates/mcp-sacha-agent.json` into your MCP config).
-2. Adjust **`args`** and **`KNOWLEDGE_BASE_PATH`** if the repo is not at `/Users/sachahurley/Projects/sacha-agent`.
+1. Open **Cursor Settings → MCP** (or merge `templates/mcp-dawg.json` into your MCP config).
+2. Adjust **`args`** and **`KNOWLEDGE_BASE_PATH`** if the repo is not at `/Users/sachahurley/Projects/dawg`.
 3. Toggle the server off/on or restart Cursor after edits.
 4. In **Agent/Chat**, ask something that requires retrieval, e.g. *“Use `search_knowledge` with query ‘semantic tokens’ and filter_folder `process`.”* Confirm you see tool calls and snippets from your KB.
 
@@ -43,8 +43,8 @@ Check **`PROJECT-TODO.md`** Phase 1.3 / 1.5 when this passes.
 ## 4. Claude Code (other folders)
 
 1. Ensure **user-scoped** MCP includes the same `command` / `args` / `env` as the template (see **`docs/mcp-all-apps.md`**).
-2. Run **`/mcp`** in a session and confirm **sacha-agent** lists with `search_knowledge`, `reindex`, `list_sources`.
-3. Open **another repo** (not sacha-agent) and confirm the same tool list if that repo should inherit user MCP.
+2. Run **`/mcp`** in a session and confirm **dawg** lists with `search_knowledge`, `reindex`, `list_sources`.
+3. Open **another repo** (not dawg) and confirm the same tool list if that repo should inherit user MCP.
 
 Check **`PROJECT-TODO.md`** Phase 1.4 when this passes.
 

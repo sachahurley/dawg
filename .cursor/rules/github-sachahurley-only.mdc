@@ -5,7 +5,7 @@ alwaysApply: true
 
 # GitHub identity check (required every time)
 
-Before running **any** of: `gh repo create`, `gh repo delete`, `gh pr create`, `git push` (including `-u origin`), `git remote add`, or `git remote set-url` — **in this project or when she asks you to publish sacha-agent**:
+Before running **any** of: `gh repo create`, `gh repo delete`, `gh pr create`, `git push` (including `-u origin`), `git remote add`, or `git remote set-url` — **in this project or when she asks you to publish dawg**:
 
 ## 1. Gather facts (run these; do not skip)
 
@@ -38,7 +38,7 @@ This applies to **every** push, including small doc-only commits. **No exception
 ## 3. Hard blocks (do not proceed without her explicit override for *that command*)
 
 - If the active login is **`sacha-hurley`** **or** any returned email is clearly **Betterfly / work** (e.g. addresses on the **`btf`** domain she uses for that job): **stop.** Do not create repos, push, or change `origin` toward that identity **unless she literally says in this conversation** that she wants **that** account used **for this specific action**.
-- Default for **sacha-agent** and her personal work: **`sachahurley`** only. Do not set `origin` to `github.com/sacha-hurley/…` unless she explicitly asked for that URL for that step.
+- Default for **dawg** and her personal work: **`sachahurley`** only. Do not set `origin` to `github.com/sacha-hurley/…` unless she explicitly asked for that URL for that step.
 
 ## 4. If the wrong account is active
 

@@ -11,7 +11,7 @@ This directory is **implementation**, not editorial content. Specs, identity, an
 | --------------------------------------------- | -------------------------------------------------------- |
 | Full setup (Chroma, Ollama, env vars, ingest) | Repo root `**README.md`**                                |
 | Portable MCP wiring for other apps            | `**docs/portable-setup.md**`, `**docs/mcp-all-apps.md**` |
-| MCP client template                           | `**templates/mcp-sacha-agent.json**`                     |
+| MCP client template                           | `**templates/mcp-dawg.json**`                     |
 | Source                                        | `**src/**` (build → `**dist/**`)                         |
 
 

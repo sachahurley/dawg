@@ -74,7 +74,7 @@ export async function runIngest(options: IngestOptions = {}): Promise<{ files: n
   const collection = await client.createCollection({
     name: COLLECTION_NAME,
     embeddingFunction: null,
-    metadata: { description: "Sacha agent knowledge base" },
+    metadata: { description: "DAWG knowledge base" },
   });
 
   let totalChunks = 0;

@@ -8,7 +8,7 @@ export function getKnowledgeBaseRoot(): string {
   const raw = process.env.KNOWLEDGE_BASE_PATH;
   if (!raw?.trim()) {
     throw new Error(
-      "KNOWLEDGE_BASE_PATH is not set. Point it at your sacha-agent folder (the repo root)."
+      "KNOWLEDGE_BASE_PATH is not set. Point it at your dawg folder (the repo root)."
     );
   }
   return resolve(raw.trim());

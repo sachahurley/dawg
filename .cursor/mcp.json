@@ -1,10 +1,10 @@
 {
   "mcpServers": {
-    "sacha-agent": {
+    "dawg": {
       "command": "node",
-      "args": ["/Users/sachahurley/Projects/sacha-agent/rag-server/dist/index.js"],
+      "args": ["/Users/sachahurley/Projects/dawg/rag-server/dist/index.js"],
       "env": {
-        "KNOWLEDGE_BASE_PATH": "/Users/sachahurley/Projects/sacha-agent",
+        "KNOWLEDGE_BASE_PATH": "/Users/sachahurley/Projects/dawg",
         "OLLAMA_HOST": "http://localhost:11434",
         "CHROMA_HOST": "localhost",
         "CHROMA_PORT": "8000"

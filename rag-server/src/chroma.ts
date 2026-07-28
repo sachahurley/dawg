@@ -1,6 +1,6 @@
 import { ChromaClient } from "chromadb";
 
-export const COLLECTION_NAME = "sacha_agent_kb";
+export const COLLECTION_NAME = "dawg_kb";
 
 export function getChromaClient(): ChromaClient {
   const host = process.env.CHROMA_HOST ?? "localhost";

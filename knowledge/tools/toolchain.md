@@ -13,7 +13,7 @@
 
 - Specs and databases differ per project; `/update-spec`, `/sync-specs`, `/sync-docs` need Notion MCP and correct `databaseName` in `ds-config`.
 
-## Local RAG (sacha-agent)
+## Local RAG (dawg)
 
 - **search_knowledge** — Personal and cross-project KB.
 - **reindex** — After editing markdown here.
@@ -22,4 +22,4 @@
 ## Claude Code / Cursor
 
 - **Project rules:** Each repo’s `CLAUDE.md` and `.cursor/rules`.
-- **Personal layer:** sacha-agent MCP + this knowledge base.
+- **Personal layer:** dawg MCP + this knowledge base.

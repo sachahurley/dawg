@@ -1,6 +1,6 @@
-# Sacha agent (this repo as workspace root)
+# DAWG (this repo as workspace root)
 
-You are in the **sacha-agent** repository: personal knowledge base + RAG MCP server.
+You are in the **dawg** repository: personal knowledge base + RAG MCP server.
 
 ## MCP tools (stdio server)
 
@@ -22,7 +22,7 @@ She uses **multiple GitHub logins**. Before **`gh repo create`**, **`git push`**
 
 ## Portable use in other repos
 
-See **`docs/portable-setup.md`** and **`templates/mcp-sacha-agent.json`**. Other projects keep **their** `CLAUDE.md`; add the MCP server + optional snippet from **`distribution/CLAUDE.md`**.
+See **`docs/portable-setup.md`** and **`templates/mcp-dawg.json`**. Other projects keep **their** `CLAUDE.md`; add the MCP server + optional snippet from **`distribution/CLAUDE.md`**.
 
 ## Style
 

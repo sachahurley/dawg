@@ -1,4 +1,4 @@
-# sacha-agent — project checklist
+# DAWG: project checklist
 
 Canonical **Chroma setup** (no Docker): Python **venv inside `rag-server/`** + `chroma run`. One-time: `cd rag-server && npm run chroma:install`. Each session: Terminal A → `npm run chroma:start`; keep **Ollama** running; use Cursor/Claude with MCP.
 
@@ -17,7 +17,7 @@ Canonical **Chroma setup** (no Docker): Python **venv inside `rag-server/`** + `
 
 ### 1.2 Knowledge base structure
 
-- [x] Folder layout under `sacha-agent/`
+- [x] Folder layout under `dawg/`
 - [x] Content across identity, knowledge, process, examples (expanded)
 - [x] Skills under `skills/` (from DS repo)
 
@@ -38,8 +38,8 @@ Canonical **Chroma setup** (no Docker): Python **venv inside `rag-server/`** + `
 
 ### 1.5 Cursor
 
-- [x] This repo includes **`.cursor/mcp.json`** + **`templates/mcp-sacha-agent.json`** (merge or mirror for global MCP)
-- [ ] **You:** confirm global Cursor MCP if you want sacha-agent in every workspace — **`docs/setup-verification.md`** (section 3)
+- [x] This repo includes **`.cursor/mcp.json`** + **`templates/mcp-dawg.json`** (merge or mirror for global MCP)
+- [ ] **You:** confirm global Cursor MCP if you want dawg in every workspace — **`docs/setup-verification.md`** (section 3)
 
 ---
 

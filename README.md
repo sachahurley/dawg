@@ -1,4 +1,4 @@
-# sacha-agent
+# DAWG
 
 Local knowledge base + **RAG MCP server** for Cursor and Claude Code. Embeddings run on **Ollama**; vectors live in **ChromaDB** (local server). Nothing in this pipeline needs a cloud embedding API.
 
@@ -70,7 +70,7 @@ npm run build
 From `rag-server/` after build:
 
 ```bash
-export KNOWLEDGE_BASE_PATH="/Users/sachahurley/Projects/sacha-agent"
+export KNOWLEDGE_BASE_PATH="/Users/sachahurley/Projects/dawg"
 npm run ingest
 ```
 
@@ -88,7 +88,7 @@ See `.claude/mcp.json` in this repo (adjust paths if you move the folder). Ensur
 
 ## Connect Cursor
 
-**Every app:** **`docs/mcp-all-apps.md`** (Cursor, Claude Desktop, Claude Code user scope, VS Code). Template JSON: **`templates/mcp-sacha-agent.json`**. More context: **`docs/portable-setup.md`**. **Verify your machine:** **`docs/setup-verification.md`**.
+**Every app:** **`docs/mcp-all-apps.md`** (Cursor, Claude Desktop, Claude Code user scope, VS Code). Template JSON: **`templates/mcp-dawg.json`**. More context: **`docs/portable-setup.md`**. **Verify your machine:** **`docs/setup-verification.md`**.
 
 You can instead mirror `.claude/mcp.json` per project if you prefer.
 

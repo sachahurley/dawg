@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * CLI entry for `npm run ingest` — same logic as the MCP `reindex` tool.
- * Usage: KNOWLEDGE_BASE_PATH=/path/to/sacha-agent node dist/ingest-cli.js [optional/subfolder]
+ * Usage: KNOWLEDGE_BASE_PATH=/path/to/dawg node dist/ingest-cli.js [optional/subfolder]
  */
 import { runIngest } from "./ingest.js";
 

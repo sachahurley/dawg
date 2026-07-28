@@ -9,7 +9,7 @@ import { listIndexedSourcesSummary, runIngest } from "./ingest.js";
 import { searchKnowledge } from "./search.js";
 
 const mcpServer = new McpServer({
-  name: "sacha-agent-rag",
+  name: "dawg-rag",
   version: "1.0.0",
 });
 
