@@ -10,7 +10,7 @@ Your original plan named Betterfly / Aura as the main product context, and sampl
 
 ## How `search_knowledge` works
 
-- The MCP server exposes three tools: **`search_knowledge`**, **`reindex`**, **`list_sources`**.
+- The MCP server exposes five tools: **`search_knowledge`**, **`reindex`**, **`list_sources`**, **`add_knowledge`**, **`get_project_profile`**.
 - **Cursor (Chat / Agent):** After MCP is configured, the model can call `search_knowledge` when your question benefits from your personal KB. You can also write explicitly: *“Use the dawg MCP `search_knowledge` tool for …”* so it definitely runs.
 - **Claude Code:** Same tools appear when `.claude/mcp.json` includes the `dawg` server.
 
@@ -37,6 +37,15 @@ Copy the `dawg` entry from `templates/mcp-dawg.json` into each repo’s `.claude
 **ds-framework:** Use `.claude/mcp.json.example` from that repo (replace `/ABSOLUTE/PATH/TO/dawg`) — see `ds-framework/docs/dawg-mcp.md`.
 
 Adjust paths if you move the repo.
+
+## Registering a project so DAWG learns from it
+
+Two small files make a repo a learning surface with its own memory lane:
+
+1. **`.claude/dawg-project.json`** (copy from `templates/dawg-project.json`): declares the repo's `context` (`betterfly` or `personal`) and `project` slug. Running `/learn-project` in the repo creates this for you and registers the project in `knowledge/projects/registry.md`.
+2. **SessionStart hook** (merge the `hooks` block from `templates/dawg-settings-hooks.json` into the repo's `.claude/settings.json`): on every session start it reminds the agent to load the project's profile via `get_project_profile`, offer to save corrections and discoveries via `add_knowledge`, and offer `/retro` before ending a working session. The hook is silent in repos without the marker file, so it is safe to add anywhere.
+
+With both in place, memories captured while working land in `knowledge/projects/<context>/<project>/`, scoped so Betterfly work and personal work never mix.
 
 ## Updates across projects
 

@@ -55,55 +55,104 @@ export type IngestOptions = {
   folder?: string;
 };
 
+type ChromaCollection = Awaited<ReturnType<ReturnType<typeof getChromaClient>["getCollection"]>>;
+
+// `embeddingFunction: null` avoids JS client sending `{ type: "legacy" }`, which Chroma 1.5 rejects.
+// We always pass precomputed embeddings from Ollama on add/query.
+async function getOrCreateCollection(client: ReturnType<typeof getChromaClient>): Promise<ChromaCollection> {
+  try {
+    return await client.getCollection({ name: COLLECTION_NAME });
+  } catch {
+    return await client.createCollection({
+      name: COLLECTION_NAME,
+      embeddingFunction: null,
+      metadata: { description: "DAWG knowledge base" },
+    });
+  }
+}
+
+/** Delete all chunks whose source_path is the given file or lives under the given folder prefix. */
+async function deleteChunksUnder(collection: ChromaCollection, relPrefix: string): Promise<number> {
+  const norm = relPrefix.replace(/^\/+/, "").replace(/\/+$/, "");
+  const result = await collection.get({ limit: 50000, include: ["metadatas"] });
+  const ids = result.ids ?? [];
+  const metas = result.metadatas ?? [];
+  const toDelete: string[] = [];
+  for (let i = 0; i < ids.length; i++) {
+    const sp = (metas[i] as { source_path?: string } | null)?.source_path;
+    if (!sp) continue;
+    if (sp === norm || sp.startsWith(`${norm}/`)) toDelete.push(ids[i]);
+  }
+  if (toDelete.length > 0) await collection.delete({ ids: toDelete });
+  return toDelete.length;
+}
+
+async function addFileChunks(collection: ChromaCollection, kbRoot: string, absPath: string): Promise<number> {
+  const sourcePath = relative(kbRoot, absPath).split(sep).join("/");
+  const body = await readFile(absPath, "utf8");
+  const chunks = chunkMarkdown(sourcePath, body);
+  if (chunks.length === 0) return 0;
+
+  const ids = chunks.map((c) => chunkGlobalId(sourcePath, c.localId));
+  const documents = chunks.map((c) => c.text);
+  const metadatas = chunks.map((c) => ({
+    source_path: c.metadata.source_path,
+    kb_folder: c.metadata.kb_folder,
+    h1: c.metadata.h1,
+    h2: c.metadata.h2,
+  }));
+
+  const embeddings = await embedTexts(documents);
+  await collection.add({ ids, embeddings, documents, metadatas });
+  return chunks.length;
+}
+
 /**
- * Full reindex: drop collection, recreate, embed all chunks with Ollama, add to Chroma.
+ * Reindex. Without `folder`: drop the collection, recreate, embed everything.
+ * With `folder`: refresh only that subtree; chunks from other folders are kept.
  */
 export async function runIngest(options: IngestOptions = {}): Promise<{ files: number; chunks: number }> {
   const kbRoot = getKnowledgeBaseRoot();
   const paths = await walkMarkdownFiles(kbRoot, options.folder);
   const client = getChromaClient();
 
-  try {
-    await client.deleteCollection({ name: COLLECTION_NAME });
-  } catch {
-    /* collection may not exist */
+  let collection: ChromaCollection;
+  if (options.folder) {
+    collection = await getOrCreateCollection(client);
+    await deleteChunksUnder(collection, options.folder);
+  } else {
+    try {
+      await client.deleteCollection({ name: COLLECTION_NAME });
+    } catch {
+      /* collection may not exist */
+    }
+    collection = await client.createCollection({
+      name: COLLECTION_NAME,
+      embeddingFunction: null,
+      metadata: { description: "DAWG knowledge base" },
+    });
   }
-
-  // `null` avoids JS client sending `{ type: "legacy" }`, which Chroma 1.5 rejects.
-  // We always pass precomputed embeddings from Ollama on add/query.
-  const collection = await client.createCollection({
-    name: COLLECTION_NAME,
-    embeddingFunction: null,
-    metadata: { description: "DAWG knowledge base" },
-  });
 
   let totalChunks = 0;
   for (const absPath of paths) {
-    const sourcePath = relative(kbRoot, absPath).split(sep).join("/");
-    const body = await readFile(absPath, "utf8");
-    const chunks = chunkMarkdown(sourcePath, body);
-    if (chunks.length === 0) continue;
-
-    const ids = chunks.map((c) => chunkGlobalId(sourcePath, c.localId));
-    const documents = chunks.map((c) => c.text);
-    const metadatas = chunks.map((c) => ({
-      source_path: c.metadata.source_path,
-      kb_folder: c.metadata.kb_folder,
-      h1: c.metadata.h1,
-      h2: c.metadata.h2,
-    }));
-
-    const embeddings = await embedTexts(documents);
-    await collection.add({
-      ids,
-      embeddings,
-      documents,
-      metadatas,
-    });
-    totalChunks += chunks.length;
+    totalChunks += await addFileChunks(collection, kbRoot, absPath);
   }
 
   return { files: paths.length, chunks: totalChunks };
+}
+
+/**
+ * Incrementally (re)index a single markdown file, given its path relative to the KB root.
+ * Existing chunks for that file are replaced; everything else is untouched.
+ */
+export async function ingestSingleFile(relPath: string): Promise<{ chunks: number }> {
+  const kbRoot = getKnowledgeBaseRoot();
+  const norm = relPath.replace(/^\/+/, "");
+  const client = getChromaClient();
+  const collection = await getOrCreateCollection(client);
+  await deleteChunksUnder(collection, norm);
+  const chunks = await addFileChunks(collection, kbRoot, join(kbRoot, norm));
+  return { chunks };
 }
 
 /** Used by list_sources: aggregate chunk counts per file from disk + optional chroma get */

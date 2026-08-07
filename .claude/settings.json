@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f .claude/dawg-project.json ] && printf %s '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"This repo is registered with DAWG. Read .claude/dawg-project.json for its context and project, then call the dawg MCP tool get_project_profile with those values before substantive work. When Sacha corrects you or you learn a non-obvious project fact, offer to save it via add_knowledge scoped to this project. Before ending a working session, offer /retro to capture learnings.\"}}' || true",
+            "timeout": 10,
+            "statusMessage": "Loading DAWG project context"
+          }
+        ]
+      }
+    ]
+  }
+}
