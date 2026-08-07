@@ -22,6 +22,11 @@
       "category": "Core",
       "description": "Build a screen composition from existing components and presets"
     },
+    "curate-kb": {
+      "notion_page_id": null,
+      "category": "Learning",
+      "description": "Maintenance sweep of the KB: stale, duplicate, or contradictory entries and promotion candidates"
+    },
     "ds-health": {
       "notion_page_id": null,
       "category": "Core",
@@ -42,10 +47,30 @@
       "category": "Core",
       "description": "Generate portable component reference files for consumer projects"
     },
+    "learn-project": {
+      "notion_page_id": null,
+      "category": "Learning",
+      "description": "Register the current repo with DAWG and build or deepen its project profile"
+    },
+    "log-correction": {
+      "notion_page_id": null,
+      "category": "Learning",
+      "description": "Capture a correction as a KB entry scoped to the current project"
+    },
+    "log-decision": {
+      "notion_page_id": null,
+      "category": "Learning",
+      "description": "Capture a decision as a KB entry scoped to the current project"
+    },
     "release-notes": {
       "notion_page_id": null,
       "category": "Core",
       "description": "Generate changelog, bump version, sync to Notion, and tag release"
+    },
+    "retro": {
+      "notion_page_id": null,
+      "category": "Learning",
+      "description": "End-of-session sweep: propose and save corrections, decisions, and project facts"
     },
     "review-component": {
       "notion_page_id": null,

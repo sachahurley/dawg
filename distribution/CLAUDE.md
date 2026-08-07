@@ -19,6 +19,10 @@ With the **dawg** server enabled (`templates/mcp-dawg.json` or your merged `mcp.
 1. **`search_knowledge`** when the user’s question is about **their documented** process, principles, comms patterns, DS philosophy, migrations, prioritization, or product notes—**not** when the answer is purely “what is in this repo’s file tree” (use normal tools for that).
 2. **`reindex`** after meaningful edits under the dawg KB (or run ingest from `rag-server/`).
 3. **`list_sources`** to debug what is indexed.
+4. **`get_project_profile`** at the start of a session in a registered repo (read `context` + `project` from `.claude/dawg-project.json`) to load project-scoped context in one call.
+5. **`add_knowledge`** to save a correction, decision, or project fact learned while working, scoped to the current project. Only pass `universal: true` after the user explicitly confirms the lesson applies everywhere.
+
+Before ending a substantive working session, offer to run **`/retro`** (if the skill is available): a sweep of the conversation for corrections, decisions, and project facts worth keeping, written only after the user approves.
 
 **Tool parameters:** `query` (required); `top_k` (optional); `filter_folder` (optional path prefix, e.g. `identity`, `process`, `knowledge/design-system`, `examples/comms`).
 

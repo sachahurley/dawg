@@ -99,6 +99,8 @@ You can instead mirror `.claude/mcp.json` per project if you prefer.
 | `search_knowledge` | Semantic search (`query`, `top_k`, optional `filter_folder`) |
 | `reindex` | Rebuild the vector index from markdown |
 | `list_sources` | List indexed files and chunk counts |
+| `add_knowledge` | Write a project-scoped correction, decision, or note into the KB and index it immediately |
+| `get_project_profile` | Load a project's profile plus its context's shared conventions in one call |
 
 ## Note on Chroma vs “fully embedded”
 

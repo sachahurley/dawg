@@ -1,0 +1,6 @@
+{
+  "_comment": "DAWG project marker. Copy to <repo>/.claude/dawg-project.json. context is exactly 'betterfly' or 'personal'. kbFolder is relative to the DAWG knowledge base root.",
+  "context": "betterfly | personal",
+  "project": "<short-kebab-slug>",
+  "kbFolder": "knowledge/projects/<context>/<project>"
+}
