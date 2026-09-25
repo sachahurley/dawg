@@ -1,7 +1,7 @@
 ---
 name: curate-kb
 description: Periodic maintenance sweep of the knowledge base - find stale, contradictory, or duplicate entries, propose merges and deletions, spot project learnings ready for promotion
-argument-hint: "[optional: context or folder to curate, e.g. 'betterfly' or 'examples/corrections']"
+argument-hint: "[optional: folder to curate, e.g. 'knowledge/projects/personal' or 'examples/corrections']"
 allowed-tools: Read, Write, Edit, Grep, Glob, Bash, mcp__dawg__search_knowledge, mcp__dawg__list_sources, mcp__dawg__reindex, mcp__dawg__dawg_health
 ---
 

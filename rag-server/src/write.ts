@@ -8,7 +8,18 @@ import { mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises";
 import { join, resolve, sep } from "node:path";
 import { getKnowledgeBaseRoot } from "./paths.js";
 
-export const CONTEXTS = ["betterfly", "personal"] as const;
+/**
+ * Knowledge contexts. `personal` only, by design.
+ *
+ * DAWG previously had a `betterfly` context for work captures. It was removed on 2026-09-25:
+ * this knowledge base lives in a public repo, and employer content does not belong in it. A
+ * one-value enum is the point. `add_knowledge` now rejects any other context outright, so the
+ * boundary is enforced by the code rather than by a gitignore rule and someone remembering.
+ *
+ * If a second context is ever genuinely needed, adding it here is not sufficient: check the
+ * repo's visibility first.
+ */
+export const CONTEXTS = ["personal"] as const;
 export type KnowledgeContext = (typeof CONTEXTS)[number];
 
 export const ENTRY_TYPES = ["correction", "decision", "note"] as const;
@@ -185,6 +196,11 @@ export type ProjectProfile = {
 
 export async function getProjectProfile(context: KnowledgeContext, project: string): Promise<ProjectProfile> {
   const kbRoot = getKnowledgeBaseRoot();
+  // Validate the context here too, not only in the MCP schema. The read path is what a stale
+  // marker in a work repo would hit, and it should refuse rather than probe the filesystem.
+  if (!(CONTEXTS as readonly string[]).includes(context)) {
+    throw new Error(`context must be one of: ${CONTEXTS.join(", ")}.`);
+  }
   if (!SLUG_RE.test(project)) {
     throw new Error("project must be a kebab-case slug (lowercase letters, digits, hyphens).");
   }

@@ -21,6 +21,21 @@ Keeping the repo public preserves it as something shareable, and the personal la
 
 The pattern `betterfly/*/` matches project folders at any depth while leaving files directly under `betterfly/` tracked, which is exactly the boundary wanted. Verified with `git check-ignore` against both cases.
 
+## Superseded, same day
+
+**Sacha then chose to remove DAWG from the Aura work altogether**, which overtakes the gitignore
+approach below. The `betterfly` context no longer exists: `CONTEXTS` in `rag-server/src/write.ts` is
+`["personal"]` only, `knowledge/projects/betterfly/` is deleted, and the `.gitignore` rule this
+decision added has been removed as unnecessary.
+
+The six captured records were archived to `~/BF-Work/dawg-aura-captures-archive/` rather than
+deleted, so the reasoning survives outside the public repo.
+
+Keep reading for the original reasoning, which still explains *why* the boundary exists. What
+changed is the mechanism: an exclusion rule that depended on everyone remembering became a
+one-value enum the code enforces. The general lesson is the durable part: when a boundary has to
+hold, prefer making the wrong thing impossible over making it discouraged.
+
 ## Follow-up
 
 **Accepted trade-off: the Betterfly captures now have no version history and no backup.** If that becomes a problem, a separate private repo is the fix, not un-ignoring these.

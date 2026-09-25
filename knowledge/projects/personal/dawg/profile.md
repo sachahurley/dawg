@@ -21,7 +21,7 @@ Sacha's personal knowledge base plus a RAG MCP server. Markdown under `identity/
 - After any substantive markdown change, reindex (folder-scoped when possible) or the change is invisible to retrieval.
 - No em dashes anywhere in generated text; use commas, colons, or restructure.
 - GitHub work happens only on the `sachahurley` account for this repo; explicit yes required before any push.
-- **This repo is public.** `knowledge/projects/betterfly/*/` is gitignored so employer-specific captures are never published; `betterfly/_shared.md` stays tracked. Check visibility before committing any captured content. See the 2026-09-25 decision on Betterfly captures.
+- **This repo is public, and it holds personal knowledge only.** `personal` is the only value in `CONTEXTS` (`rag-server/src/write.ts`), so `add_knowledge` rejects employer content outright rather than relying on a gitignore rule. Do not register work repos. See the 2026-09-25 decision on Betterfly captures for the reasoning and how it escalated.
 
 ## Gotchas
 

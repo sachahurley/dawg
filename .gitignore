@@ -11,9 +11,3 @@ rag-server/*.log
 
 # OS
 .DS_Store
-
-# Betterfly project captures. github.com/sachahurley/dawg is public, and these hold
-# internal component APIs, spec versions and dated product decisions. The context-level
-# betterfly/_shared.md stays tracked; only the per-project folders are excluded.
-# Trade-off accepted: these files get no version history. Back them up elsewhere.
-knowledge/projects/betterfly/*/

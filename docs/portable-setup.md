@@ -4,9 +4,9 @@
 
 The RAG index lives in **one place** (`dawg`). Other repos (Scorp DS, ds-framework, app code, etc.) only need to **point the MCP client** at the built server. You do **not** copy the knowledge base into each repo.
 
-## Why you saw “Aura DS” in prompts
+## What the tool actually searches
 
-Your original plan named Betterfly / Aura as the main product context, and sample skills were copied from a DS repo. **The tool is generic:** it searches whatever markdown lives under `dawg/` (`identity/`, `knowledge/`, `process/`, `examples/`, `skills/`). Edit those files to match *any* design system or job context. Aura-specific text is just starter content you can replace.
+**The tool is generic:** it searches the markdown under `dawg/` that holds reusable judgment (`identity/`, `knowledge/`, `process/`, `examples/`). `skills/`, `docs/` and `distribution/` are deliberately excluded, because indexing them buried the judgment layer. See **What gets indexed** in the README. Edit the indexed files to match whatever design system or working context you want.
 
 ## How `search_knowledge` works
 
@@ -42,10 +42,12 @@ Adjust paths if you move the repo.
 
 Two small files make a repo a learning surface with its own memory lane:
 
-1. **`.claude/dawg-project.json`** (copy from `templates/dawg-project.json`): declares the repo's `context` (`betterfly` or `personal`) and `project` slug. Running `/learn-project` in the repo creates this for you and registers the project in `knowledge/projects/registry.md`.
+1. **`.claude/dawg-project.json`** (copy from `templates/dawg-project.json`): declares the repo's `context` (always `personal`) and `project` slug. Running `/learn-project` in the repo creates this for you and registers the project in `knowledge/projects/registry.md`.
 2. **SessionStart hook** (merge the `hooks` block from `templates/dawg-settings-hooks.json` into the repo's `.claude/settings.json`): on every session start it reminds the agent to load the project's profile via `get_project_profile`, offer to save corrections and discoveries via `add_knowledge`, and offer `/retro` before ending a working session. The hook is silent in repos without the marker file, so it is safe to add anywhere.
 
-With both in place, memories captured while working land in `knowledge/projects/<context>/<project>/`, scoped so Betterfly work and personal work never mix.
+With both in place, memories captured while working land in `knowledge/projects/personal/<project>/`.
+
+**Do not register a work repo.** DAWG is a public repo holding personal knowledge; employer content does not belong in it, and `add_knowledge` rejects any context other than `personal`.
 
 ## Updates across projects
 

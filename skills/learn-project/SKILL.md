@@ -14,7 +14,8 @@ Onboard the current repo into DAWG, or deepen its existing profile. This is the 
 1. Read `.claude/dawg-project.json` in the current repo. If present, use its `context`, `project`, and `kbFolder`.
 2. Locate the DAWG knowledge base root: if this repo is dawg itself, it is the repo root; otherwise read `KNOWLEDGE_BASE_PATH` from the `dawg` server entry in this project's `.mcp.json` or `.claude/mcp.json`.
 3. If the marker is missing, read `knowledge/projects/registry.md` at the KB root and match this repo by folder name, then by `git remote get-url origin`.
-4. If still unresolved, propose a scope and **ask Sacha to confirm before writing anything**: infer `context` (`betterfly` if the remote or org points at Betterfly or a `*@btf*` account, otherwise `personal`) and a short kebab-case `project` slug from the repo name. Never guess silently; a memory filed in the wrong context is worse than no memory.
+4. If still unresolved, propose a scope and **ask Sacha to confirm before writing anything**: `context` is always `personal`, so infer a short kebab-case `project` slug from the repo name. Never guess silently.
+5. **Stop if this is a work repo.** DAWG holds personal knowledge only and lives in a public repo. If the remote or org points at an employer, or the account is `*@btf*`, do not register it: say so and stop. `add_knowledge` will reject it anyway, but do not get that far.
 5. Once confirmed, write `.claude/dawg-project.json` in the current repo (see `templates/dawg-project.json` in the KB), add a row to `registry.md`, and create `knowledge/projects/<context>/<project>/` if needed.
 6. State the resolved scope at the top of your output: `DAWG scope: <context>/<project>`.
 
@@ -43,7 +44,7 @@ Create or update `knowledge/projects/<context>/<project>/profile.md`:
 ```markdown
 # Project profile: <project>
 
-- **Context:** <betterfly | personal>
+- **Context:** personal
 - **Repo:** `<folder>` (<remote>)
 - **Last updated:** <YYYY-MM-DD>
 
@@ -63,7 +64,7 @@ On deepening passes, append new facts under the matching heading and update **La
 ## Boundaries
 
 - Write only inside this project's KB folder and the registry. Never write to `identity/`, another project's folder, or the other context.
-- If you find a fact that seems true across the whole context (all Betterfly work, or all personal work), propose promoting it to `_shared.md` and wait for Sacha's yes.
+- If you find a fact that seems true across all personal projects, propose promoting it to `_shared.md` and wait for Sacha's yes.
 
 ## Related skills
 

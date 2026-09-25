@@ -1,6 +1,6 @@
 # Product prioritization (framework)
 
-Use this structure when drafting or reviewing priorities. Fill in **Betterfly-specific** initiatives in separate files as needed.
+Use this structure when drafting or reviewing priorities. Keep product-specific initiatives in the product's own repo, not here.
 
 ## Dimensions
 

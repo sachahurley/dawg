@@ -1,15 +1,14 @@
 # Project knowledge
 
-Per-project memories, scoped by context so Betterfly work and personal work never blur.
+Per-project memories for Sacha's personal projects.
+
+**`personal` is the only context.** A `betterfly` context existed until 2026-09-25 and was removed: this repo is public, so employer knowledge does not belong in it. `add_knowledge` rejects any other context, so the boundary is enforced in code (`rag-server/src/write.ts`), not by convention.
 
 ## Layout
 
 ```
 knowledge/projects/
   registry.md           Lookup table: repo -> context + project + folder
-  betterfly/
-    _shared.md          Conventions true across all Betterfly projects
-    <project>/          One folder per Betterfly project
   personal/
     _shared.md          Conventions true across all personal projects
     <project>/          One folder per personal project
@@ -25,14 +24,14 @@ Each project folder contains:
 
 - **Retrieval**: query in widening circles. First `filter_folder` the project's own folder, then the context's `_shared.md`, then the global KB (`identity/`, `examples/`, `knowledge/`).
 - **Capture**: every memory written here must belong to exactly one project. Universal learnings go to the global `examples/` folders instead, but only after Sacha confirms they are universal.
-- **No cross-context leakage**: Betterfly specifics never inform personal defaults, and vice versa. Promotion from project to shared or global scope always requires an explicit yes from Sacha.
+- **Nothing employer-specific**: work knowledge does not belong in this repo at all, not in a separate context. Promotion from project to shared or global scope always requires an explicit yes from Sacha.
 
 ## How the agent knows which project it is in
 
 Each working repo carries a marker file at `.claude/dawg-project.json`:
 
 ```json
-{ "context": "betterfly", "project": "aura", "kbFolder": "knowledge/projects/betterfly/aura" }
+{ "context": "personal", "project": "portfolio", "kbFolder": "knowledge/projects/personal/portfolio" }
 ```
 
 The learning skills (`/learn-project`, `/log-correction`, `/log-decision`, `/retro`) read this marker first, fall back to `registry.md`, and ask Sacha to confirm if neither resolves. See `templates/dawg-project.json` for the template.

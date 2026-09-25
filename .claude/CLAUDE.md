@@ -27,7 +27,7 @@ She uses **multiple GitHub logins**. Before **`gh repo create`**, **`git push`**
 
 ## Learning loop
 
-Per-project memories live under **`knowledge/projects/<context>/<project>/`** (`betterfly` or `personal`), routed by each repo's **`.claude/dawg-project.json`** marker and **`knowledge/projects/registry.md`**. Capture skills: **`/learn-project`** (register + profile a repo), **`/log-correction`**, **`/log-decision`**, **`/retro`** (end-of-session sweep), **`/curate-kb`** (maintenance). A SessionStart hook (see `templates/dawg-settings-hooks.json`) nudges registered repos to load their profile and capture learnings. Never write to `identity/`; promotion to shared or global scope requires Sacha's explicit yes.
+Per-project memories live under **`knowledge/projects/personal/<project>/`** (`personal` is the only context; DAWG holds no employer knowledge, see `rag-server/src/write.ts`), routed by each repo's **`.claude/dawg-project.json`** marker and **`knowledge/projects/registry.md`**. Capture skills: **`/learn-project`** (register + profile a repo), **`/log-correction`**, **`/log-decision`**, **`/retro`** (end-of-session sweep), **`/curate-kb`** (maintenance). A SessionStart hook (see `templates/dawg-settings-hooks.json`) nudges registered repos to load their profile and capture learnings. Never write to `identity/`; promotion to shared or global scope requires Sacha's explicit yes.
 
 ## Portable use in other repos
 
