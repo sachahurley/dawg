@@ -6,6 +6,7 @@
   "description": "Local MCP server: chunk, embed (Ollama), store/search (ChromaDB)",
   "scripts": {
     "build": "tsc",
+    "test": "tsc && node --test \"dist/*.test.js\"",
     "start": "node dist/index.js",
     "ingest": "node dist/ingest-cli.js",
     "dev": "tsc && node dist/index.js",

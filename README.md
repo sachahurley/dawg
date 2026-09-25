@@ -77,6 +77,20 @@ carries a shebang pointing at the venv's own interpreter, so moving or renaming 
 cd rag-server && npm run chroma:install
 ```
 
+## Tests
+
+```bash
+cd rag-server && npm test
+```
+
+Compiles, then runs the unit suite on Node's built-in test runner (no extra dependencies). It
+covers the logic that has broken silently in the past: path metadata and folder-prefix matching,
+chunk packing, and the write-path guards that keep this public repo personal-only. It does not
+require Ollama or Chroma.
+
+Integration behaviour is still checked by hand: reindex, then `dawg_health` and a `filter_folder`
+search.
+
 ## Build the MCP server
 
 ```bash
