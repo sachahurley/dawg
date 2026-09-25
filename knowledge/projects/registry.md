@@ -8,6 +8,7 @@ Match on repo folder name first, then on the git remote URL.
 |---|---|---|---|---|
 | `dawg` | `github.com/sachahurley/dawg` | personal | dawg | `knowledge/projects/personal/dawg` |
 | `portfolio` | `github.com/sachahurley/portfolio` | personal | portfolio | `knowledge/projects/personal/portfolio` |
+| `auspex` | `github.com/sachahurley/auspex` | personal | auspex | `knowledge/projects/personal/auspex` |
 
 <!-- Personal repos only. Do not add work repos: DAWG is public and `personal` is the only
      valid context, so `add_knowledge` would reject them anyway. -->
