@@ -9,10 +9,13 @@ You are in the **dawg** repository: personal knowledge base + RAG MCP server.
 - **`list_sources`** — See indexed files and chunk counts.
 - **`add_knowledge`** — Write a project-scoped correction, decision, or note (`context`, `project`, `type`, `title`, `content`) and index it immediately. `universal: true` only after Sacha confirms.
 - **`get_project_profile`** — Load a project's `profile.md` plus its context's `_shared.md` (`context`, `project`).
+- **`dawg_health`** — Check Ollama, Chroma, the collection, and whether the index matches the markdown on disk. Use it before trusting an empty search result.
 
 ## Identity and content
 
 Authoritative voice and rules: **`identity/system-prompt.md`**, **`identity/principles.md`**, **`identity/communication-style.md`**. Everything under `knowledge/`, `process/`, `examples/` is fair game for retrieval.
+
+Retrieval deliberately excludes `skills/`, `docs/`, `distribution/`, template files and dotfolders (see **What gets indexed** in the README). Those files are still readable on disk; they are just not searchable, because indexing them buried the judgment layer.
 
 ## When helping Sacha edit this repo
 

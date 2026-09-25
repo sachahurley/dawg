@@ -6,7 +6,7 @@
 
 ## What it is
 
-Sacha's personal knowledge base plus a RAG MCP server. Markdown under `identity/`, `knowledge/`, `process/`, and `examples/` is chunked, embedded via Ollama, stored in Chroma, and served to any project through the `dawg` MCP server (`search_knowledge`, `reindex`, `list_sources`, `add_knowledge`, `get_project_profile`).
+Sacha's personal knowledge base plus a RAG MCP server. Markdown under `identity/`, `knowledge/`, `process/`, and `examples/` is chunked, embedded via Ollama, stored in Chroma, and served to any project through the `dawg` MCP server (`search_knowledge`, `reindex`, `list_sources`, `add_knowledge`, `get_project_profile`, `dawg_health`).
 
 ## Stack and moving parts
 
@@ -24,7 +24,9 @@ Sacha's personal knowledge base plus a RAG MCP server. Markdown under `identity/
 
 ## Gotchas
 
-- `reindex` fails silently in usefulness if Ollama or Chroma is not running; check both before assuming the index is fresh.
+- `dawg_health` is the fastest way to tell whether retrieval is actually working. Ollama or Chroma being down, or the index not matching disk, all used to look identical to "no results".
+- Retrieval covers `identity/`, `knowledge/`, `process/`, `examples/` and the root `README.md` only. `skills/`, `docs/`, `distribution/`, template files and dotfolders are excluded on purpose: indexing them buried the judgment layer. The exclusion lists are at the top of `rag-server/src/ingest.ts` and changing them needs a full reindex.
+- The collection uses cosine distance, so distances are roughly 0.2 (very close) to 0.6 (weak). Any threshold logic depends on this; it was L2 before, which returned values in the hundreds.
 - Skill docs in `skills/` are mirrored to Notion via `sync-skill-docs` and tracked in `skills/index.json`; new skills need an `index.json` entry.
 
 ---

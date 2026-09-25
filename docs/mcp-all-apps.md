@@ -26,6 +26,9 @@ claude mcp get dawg
 claude mcp list
 ```
 
+Then call **`dawg_health`** in a session. `claude mcp list` only proves the process starts; `dawg_health`
+proves Ollama, Chroma and the index are all actually working.
+
 To remove later: `claude mcp remove dawg --scope user` (exact syntax may vary; use `claude mcp --help`).
 
 ## Claude Desktop config path (macOS)

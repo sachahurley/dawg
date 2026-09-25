@@ -10,7 +10,7 @@ Your original plan named Betterfly / Aura as the main product context, and sampl
 
 ## How `search_knowledge` works
 
-- The MCP server exposes five tools: **`search_knowledge`**, **`reindex`**, **`list_sources`**, **`add_knowledge`**, **`get_project_profile`**.
+- The MCP server exposes: **`search_knowledge`**, **`reindex`**, **`list_sources`**, **`add_knowledge`**, **`get_project_profile`**, **`dawg_health`**.
 - **Cursor (Chat / Agent):** After MCP is configured, the model can call `search_knowledge` when your question benefits from your personal KB. You can also write explicitly: *“Use the dawg MCP `search_knowledge` tool for …”* so it definitely runs.
 - **Claude Code:** Same tools appear when `.claude/mcp.json` includes the `dawg` server.
 
@@ -20,7 +20,7 @@ Parameters for `search_knowledge`:
 |------------------|--------|
 | `query`          | Natural language question or keywords. |
 | `top_k`          | How many chunks to return (default 5). |
-| `filter_folder`  | Optional path prefix, e.g. `knowledge/design-system` or `process`, to limit which files are searched. |
+| `filter_folder`  | Optional folder to search inside, e.g. `knowledge/design-system` or `process`. Matching is segment-aware: pass a whole path prefix or an exact file path, not a partial segment. |
 
 After you change KB markdown, run **`reindex`** (or `npm run ingest` from `rag-server/`) so search stays current.
 

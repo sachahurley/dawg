@@ -1,11 +1,13 @@
 /**
- * MCP server (stdio): exposes search_knowledge, reindex, list_sources.
+ * MCP server (stdio): exposes search_knowledge, reindex, list_sources, add_knowledge,
+ * get_project_profile, and dawg_health.
  * Logs must go to stderr only — stdout is reserved for the MCP JSON-RPC stream.
  */
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { ingestSingleFile, listIndexedSourcesSummary, runIngest } from "./ingest.js";
+import { checkHealth } from "./health.js";
+import { ingestSingleFile, listIndexedSources, runIngest } from "./ingest.js";
 import { searchKnowledge } from "./search.js";
 import { addKnowledge, CONTEXTS, ENTRY_TYPES, getProjectProfile } from "./write.js";
 
@@ -13,6 +15,19 @@ const mcpServer = new McpServer({
   name: "dawg-rag",
   version: "1.0.0",
 });
+
+/** Uniform tool error shape. Every tool reports failures instead of throwing. */
+function toolError(prefix: string, err: unknown) {
+  return {
+    content: [
+      {
+        type: "text" as const,
+        text: `${prefix}: ${err instanceof Error ? err.message : String(err)}`,
+      },
+    ],
+    isError: true,
+  };
+}
 
 mcpServer.registerTool(
   "search_knowledge",
@@ -26,30 +41,35 @@ mcpServer.registerTool(
         .string()
         .optional()
         .describe(
-          "Optional path prefix to limit search, e.g. knowledge/design-system or process — must match source_path prefix"
+          "Optional folder to search within, e.g. identity, process, examples/decisions, or knowledge/design-system. Matching is segment-aware: the value must be a whole path prefix (or an exact file path), not a partial segment."
         ),
     },
   },
   async ({ query, top_k, filter_folder }) => {
-    const k = top_k ?? 5;
-    const hits = await searchKnowledge(query, k, filter_folder);
-    if (hits.length === 0) {
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: "No results (empty index or no matches). Run reindex after adding markdown to the knowledge base.",
-          },
-        ],
-      };
+    try {
+      const k = top_k ?? 5;
+      const hits = await searchKnowledge(query, k, filter_folder);
+      if (hits.length === 0) {
+        const scope = filter_folder ? ` in "${filter_folder}"` : "";
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: `No matches${scope}. The index is reachable but nothing scored close enough. Try a broader query, drop filter_folder, or run dawg_health to confirm the index covers what you expect.`,
+            },
+          ],
+        };
+      }
+      const text = hits
+        .map((h, i) => {
+          const dist = h.distance !== undefined ? ` (distance: ${h.distance.toFixed(4)})` : "";
+          return `### Result ${i + 1}${dist}\n**File:** ${h.source_path}\n**Folder:** ${h.kb_folder}\n**Section:** ${h.h1 ? `${h.h1} / ` : ""}${h.h2}\n\n${h.text}\n`;
+        })
+        .join("\n---\n\n");
+      return { content: [{ type: "text" as const, text }] };
+    } catch (err) {
+      return toolError("search_knowledge failed", err);
     }
-    const text = hits
-      .map((h, i) => {
-        const dist = h.distance !== undefined ? ` (distance: ${h.distance.toFixed(4)})` : "";
-        return `### Result ${i + 1}${dist}\n**File:** ${h.source_path}\n**Folder:** ${h.kb_folder}\n**Section:** ${h.h1 ? `${h.h1} / ` : ""}${h.h2}\n\n${h.text}\n`;
-      })
-      .join("\n---\n\n");
-    return { content: [{ type: "text" as const, text }] };
   }
 );
 
@@ -68,15 +88,19 @@ mcpServer.registerTool(
     },
   },
   async ({ folder }) => {
-    const { files, chunks } = await runIngest({ folder: folder ?? undefined });
-    return {
-      content: [
-        {
-          type: "text" as const,
-          text: `Reindex complete. Files scanned: ${files}. Chunks stored: ${chunks}.`,
-        },
-      ],
-    };
+    try {
+      const { files, chunks } = await runIngest({ folder: folder ?? undefined });
+      return {
+        content: [
+          {
+            type: "text" as const,
+            text: `Reindex complete. Files scanned: ${files}. Chunks stored: ${chunks}.`,
+          },
+        ],
+      };
+    } catch (err) {
+      return toolError("reindex failed", err);
+    }
   }
 );
 
@@ -87,14 +111,47 @@ mcpServer.registerTool(
     inputSchema: {},
   },
   async () => {
-    const rows = await listIndexedSourcesSummary();
-    if (rows.length === 0) {
-      return {
-        content: [{ type: "text" as const, text: "No indexed sources yet. Run reindex first." }],
-      };
+    try {
+      const rows = await listIndexedSources();
+      if (rows.length === 0) {
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: "The index is empty. Chroma is reachable, so this means nothing has been ingested yet: run reindex.",
+            },
+          ],
+        };
+      }
+      const total = rows.reduce((n, r) => n + r.chunk_count, 0);
+      const text = [
+        ...rows.map((r) => `- ${r.source_path} — ${r.chunk_count} chunks (${r.kb_folder})`),
+        "",
+        `${rows.length} files, ${total} chunks.`,
+      ].join("\n");
+      return { content: [{ type: "text" as const, text }] };
+    } catch (err) {
+      return toolError("list_sources failed", err);
     }
-    const text = rows.map((r) => `- ${r.source_path} — ${r.chunk_count} chunks (${r.kb_folder})`).join("\n");
-    return { content: [{ type: "text" as const, text }] };
+  }
+);
+
+mcpServer.registerTool(
+  "dawg_health",
+  {
+    description:
+      "Check the whole retrieval stack: Ollama, Chroma, the collection, and whether the index matches the markdown on disk. " +
+      "Call this when search returns nothing unexpected, before trusting an empty result, or as the inventory step of /curate-kb. " +
+      "Reports files missing from the index, stale indexed paths, files changed since indexing, orphan collections, and the date of the last capture.",
+    inputSchema: {},
+  },
+  async () => {
+    try {
+      const report = await checkHealth();
+      return { content: [{ type: "text" as const, text: JSON.stringify(report, null, 2) }] };
+    } catch (err) {
+      return toolError("dawg_health failed", err);
+    }
   }
 );
 
@@ -161,12 +218,7 @@ mcpServer.registerTool(
       }
       return { content: [{ type: "text" as const, text: lines.join("\n") }] };
     } catch (err) {
-      return {
-        content: [
-          { type: "text" as const, text: `add_knowledge failed: ${err instanceof Error ? err.message : String(err)}` },
-        ],
-        isError: true,
-      };
+      return toolError("add_knowledge failed", err);
     }
   }
 );
@@ -187,15 +239,7 @@ mcpServer.registerTool(
       const profile = await getProjectProfile(context, project);
       return { content: [{ type: "text" as const, text: profile.text }] };
     } catch (err) {
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: `get_project_profile failed: ${err instanceof Error ? err.message : String(err)}`,
-          },
-        ],
-        isError: true,
-      };
+      return toolError("get_project_profile failed", err);
     }
   }
 );

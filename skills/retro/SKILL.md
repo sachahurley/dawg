@@ -44,7 +44,7 @@ Each entry gets provenance: pass `source: "<repo>"`, or add `Source: <repo>, <da
 
 ## Step 4: Report
 
-If any files were written directly (not via `add_knowledge`), run `reindex` once with `filter_folder` `knowledge/projects/<context>/<project>` (plus `examples/corrections` or `examples/decisions` if anything universal was approved). Then report: what was written where, what was proposed but rejected, and what was deliberately skipped.
+If any files were written directly (not via `add_knowledge`), run `reindex` once with `folder` set to `knowledge/projects/<context>/<project>` (plus `examples/corrections` or `examples/decisions` if anything universal was approved). Then report: what was written where, what was proposed but rejected, and what was deliberately skipped.
 
 ## Boundaries
 

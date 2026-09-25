@@ -38,7 +38,7 @@ Default to project-specific when in doubt. A project-scoped lesson can be promot
 
 1. Run `search_knowledge` for the mistake (query with the wrong behavior, filter to the target folder). If a near-duplicate exists, **update that file** with the new instance instead of creating a sibling (edit it directly in the dawg repo, or note the duplicate for Sacha if you cannot reach the file).
 2. Otherwise, **preferred path**: call the `add_knowledge` MCP tool with `context`, `project`, `type: "correction"`, a short `title`, the correction body (structured like `examples/corrections/TEMPLATE.md`), and `source` set to the repo name. Pass `universal: true` only after Sacha's explicit yes. The tool writes the file and indexes it in one step.
-3. **Fallback** (MCP server unavailable, or you are editing the dawg repo directly): create `<target-folder>/YYYY-MM-DD-<slug>.md` using the TEMPLATE.md structure, add a provenance line (`Source: <repo>, <date> session.`), then run `reindex` with `filter_folder` set to the folder you touched.
+3. **Fallback** (MCP server unavailable, or you are editing the dawg repo directly): create `<target-folder>/YYYY-MM-DD-<slug>.md` using the TEMPLATE.md structure, add a provenance line (`Source: <repo>, <date> session.`), then run `reindex` with `folder` set to the folder you touched.
 
 ## Step 4: Report
 
