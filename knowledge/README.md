@@ -30,4 +30,4 @@ Add more top-level subfolders when a topic deserves its own slice (e.g. `knowled
 
 ## After you edit
 
-Run `**reindex**` on the MCP server (or `npm run ingest` with a path) so search stays current. For a single subtree, use `filter_folder` when testing, e.g. `knowledge/design-system`.
+Run `**reindex**` on the MCP server (or `npm run ingest` with a path) so search stays current. To refresh only one subtree, pass **`folder`**, e.g. `knowledge/design-system`. To search inside that subtree afterwards, pass **`filter_folder`** to `search_knowledge`. Run **`dawg_health`** if you want to confirm the index matches what is on disk.

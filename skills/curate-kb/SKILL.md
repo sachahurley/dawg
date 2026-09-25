@@ -2,7 +2,7 @@
 name: curate-kb
 description: Periodic maintenance sweep of the knowledge base - find stale, contradictory, or duplicate entries, propose merges and deletions, spot project learnings ready for promotion
 argument-hint: "[optional: context or folder to curate, e.g. 'betterfly' or 'examples/corrections']"
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash, mcp__dawg__search_knowledge, mcp__dawg__list_sources, mcp__dawg__reindex
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash, mcp__dawg__search_knowledge, mcp__dawg__list_sources, mcp__dawg__reindex, mcp__dawg__dawg_health
 ---
 
 # Curate Knowledge Base
@@ -15,7 +15,7 @@ Curate one slice per run, not everything. If `$ARGUMENTS` names a context or fol
 
 ## Step 1: Inventory
 
-1. Run `list_sources` and compare against the files on disk. Flag files that exist but are not indexed (a reindex is due) and indexed paths that no longer exist on disk (stale chunks).
+1. Run `dawg_health`. It reports `missing_from_index` (a reindex is due), `stale_in_index` (indexed paths no longer on disk), `changed_on_disk` (edited since indexing), `orphan_collections`, and `last_capture_at`. If `status` is `down`, stop and fix Ollama or Chroma first: every finding below depends on retrieval working.
 2. Within the sweep scope, list entries by date. Note anything older than roughly six months that describes a moving target (tool versions, in-flight migrations, "currently broken" bugs).
 
 ## Step 2: Find problems

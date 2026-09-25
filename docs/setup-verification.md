@@ -31,6 +31,19 @@ npm run ingest
 
 Expect ingest to report chunk counts with no errors.
 
+## 2b. Confirm the index is healthy
+
+Call **`dawg_health`** from any session with the `dawg` MCP server. It is the fastest check and the
+only one that distinguishes a stopped service from an empty index:
+
+- `status` is `ok`, or `degraded` with a reason you recognise.
+- `chroma_ok` and `ollama_ok` are both true.
+- `file_count` equals `files_on_disk`.
+- `missing_from_index`, `stale_in_index` and `changed_on_disk` are empty.
+
+If `status` is `down`, the message names which service to start. A non-empty `missing_from_index`
+means a `reindex` is due.
+
 ## 3. Cursor MCP
 
 1. Open **Cursor Settings → MCP** (or merge `templates/mcp-dawg.json` into your MCP config).
@@ -43,7 +56,7 @@ Check **`PROJECT-TODO.md`** Phase 1.3 / 1.5 when this passes.
 ## 4. Claude Code (other folders)
 
 1. Ensure **user-scoped** MCP includes the same `command` / `args` / `env` as the template (see **`docs/mcp-all-apps.md`**).
-2. Run **`/mcp`** in a session and confirm **dawg** lists with `search_knowledge`, `reindex`, `list_sources`.
+2. Run **`/mcp`** in a session and confirm **dawg** lists all six tools: `search_knowledge`, `reindex`, `list_sources`, `add_knowledge`, `get_project_profile`, `dawg_health`.
 3. Open **another repo** (not dawg) and confirm the same tool list if that repo should inherit user MCP.
 
 Check **`PROJECT-TODO.md`** Phase 1.4 when this passes.

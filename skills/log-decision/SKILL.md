@@ -31,7 +31,7 @@ Default to project-specific when in doubt.
 
 1. Run `search_knowledge` for the question this decision settles, filtered to the target folder and to `examples/decisions`. If an existing decision covers it, either confirm it still stands (no new file) or record the **supersession** explicitly: new entry links the old one and states what changed and why.
 2. **Preferred path**: call the `add_knowledge` MCP tool with `context`, `project`, `type: "decision"`, a short `title`, the decision body (structured like `examples/decisions/TEMPLATE.md`), and `source` set to the repo name. Pass `universal: true` only after Sacha's explicit yes; the tool assigns the next global number itself. It writes the file and indexes it in one step.
-3. **Fallback** (MCP server unavailable, or you are editing the dawg repo directly): write the file using the TEMPLATE.md structure plus a provenance line (`Source: <repo>, <date> session.`), then run `reindex` with `filter_folder` set to the folder you touched.
+3. **Fallback** (MCP server unavailable, or you are editing the dawg repo directly): write the file using the TEMPLATE.md structure plus a provenance line (`Source: <repo>, <date> session.`), then run `reindex` with `folder` set to the folder you touched.
 
 ## Step 4: Report
 

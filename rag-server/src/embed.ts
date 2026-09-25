@@ -12,6 +12,26 @@ export function getEmbeddingModel(): string {
   return process.env.OLLAMA_EMBED_MODEL?.trim() || DEFAULT_MODEL;
 }
 
+/** Thrown when Ollama cannot be contacted at all, as opposed to rejecting a request. */
+export class OllamaUnreachableError extends Error {
+  constructor() {
+    super(
+      `Ollama is not reachable at ${getOllamaHost()}. Start it with: brew services start ollama`
+    );
+    this.name = "OllamaUnreachableError";
+  }
+}
+
+/** True when Ollama answers. Used by health checks and to turn fetch failures into clear errors. */
+export async function isOllamaReachable(): Promise<boolean> {
+  try {
+    const res = await fetch(`${getOllamaHost()}/api/tags`);
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 type OllamaEmbedResponse = {
   embedding?: number[];
   embeddings?: number[][];
@@ -26,11 +46,16 @@ export async function embedText(text: string): Promise<number[]> {
   const url = `${host}/api/embeddings`;
 
   const tryBody = async (body: Record<string, unknown>) => {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+    let res: Response;
+    try {
+      res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+    } catch {
+      throw new OllamaUnreachableError();
+    }
     if (!res.ok) {
       const errText = await res.text();
       throw new Error(`Ollama embeddings failed (${res.status}): ${errText || res.statusText}`);
@@ -39,12 +64,17 @@ export async function embedText(text: string): Promise<number[]> {
   };
 
   let data = await tryBody({ model, input: text });
-  if (!data.embedding?.length) {
-    data = await tryBody({ model, prompt: text });
-  }
-  const vec = data.embedding;
+  // Newer Ollama answers `input` with the plural field; only fall back to the legacy
+  // `prompt` shape when neither is present, so the common case costs one round trip.
+  let vec = data.embedding ?? data.embeddings?.[0];
   if (!vec?.length) {
-    throw new Error("Ollama returned no embedding vector. Is the model pulled? (ollama pull nomic-embed-text)");
+    data = await tryBody({ model, prompt: text });
+    vec = data.embedding ?? data.embeddings?.[0];
+  }
+  if (!vec?.length) {
+    throw new Error(
+      `Ollama returned no embedding vector. Is the model pulled? (ollama pull ${model})`
+    );
   }
   return vec;
 }

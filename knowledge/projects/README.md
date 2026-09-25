@@ -41,4 +41,4 @@ The learning skills (`/learn-project`, `/log-correction`, `/log-decision`, `/ret
 
 Agents working outside the dawg repo write here through the **`add_knowledge`** MCP tool (`context`, `project`, `type`, `title`, `content`). It validates the scope, refuses `identity/`, and indexes the new entry immediately, so no direct filesystem access to this repo is needed. **`get_project_profile`** is the matching read: it returns a project's `profile.md` plus its context's `_shared.md` in one call.
 
-After hand-editing files here, run **`reindex`** with `filter_folder` `knowledge/projects` (or run `npm run ingest` from `rag-server/`). Folder-scoped reindex refreshes only that subtree; the rest of the index is kept.
+After hand-editing files here, run **`reindex`** with `folder` set to `knowledge/projects` (or run `npm run ingest` from `rag-server/`). Folder-scoped reindex refreshes only that subtree; the rest of the index is kept.

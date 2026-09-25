@@ -1,5 +1,8 @@
 # DAWG: project checklist
 
+> The phases below are this checklist's own setup stages. They are unrelated to the phases in
+> `docs/fix-plan.md`, which numbers a separate repair plan. When citing a phase, name the document.
+
 Canonical **Chroma setup** (no Docker): Python **venv inside `rag-server/`** + `chroma run`. One-time: `cd rag-server && npm run chroma:install`. Each session: Terminal A → `npm run chroma:start`; keep **Ollama** running; use Cursor/Claude with MCP.
 
 ---
@@ -66,7 +69,7 @@ Canonical **Chroma setup** (no Docker): Python **venv inside `rag-server/`** + `
 ## Phase 4 — Judgment layer
 
 - [x] `examples/decisions/` — annotated decisions (001–008) + `TEMPLATE.md` + README
-- [x] `examples/corrections/` — multiple corrections + `TEMPLATE.md` (`_template.md` redirects)
+- [x] `examples/corrections/` — multiple corrections + `TEMPLATE.md`
 - [x] `examples/comms/` — audience samples + `TEMPLATE.md` + README
 - [x] `examples/before-after/` — spec tightening example + README
 - [ ] **Ongoing:** add real corrections as they happen; grow decision log; **`reindex`** after batches

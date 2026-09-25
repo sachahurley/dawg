@@ -57,7 +57,7 @@ On deepening passes, append new facts under the matching heading and update **La
 
 ## Step 4: Reindex and report
 
-1. Run `reindex` with `filter_folder` `knowledge/projects/<context>/<project>` (or tell Sacha to run `npm run ingest` from `rag-server/` if Ollama or Chroma is unavailable).
+1. Run `reindex` with `folder` set to `knowledge/projects/<context>/<project>` (or tell Sacha to run `npm run ingest` from `rag-server/` if Ollama or Chroma is unavailable).
 2. Report: the resolved scope, whether this was a first registration or a deepening pass, the facts added, and anything you chose **not** to record because it looked derivable or uncertain.
 
 ## Boundaries

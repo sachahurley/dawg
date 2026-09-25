@@ -111,6 +111,23 @@ You can instead mirror `.claude/mcp.json` per project if you prefer.
 | `list_sources` | List indexed files and chunk counts |
 | `add_knowledge` | Write a project-scoped correction, decision, or note into the KB and index it immediately |
 | `get_project_profile` | Load a project's profile plus its context's shared conventions in one call |
+| `dawg_health` | Check Ollama, Chroma, and whether the index matches the markdown on disk |
+
+## What gets indexed
+
+Retrieval covers the layers you reason *from*: `identity/`, `knowledge/`, `process/`, `examples/`, plus the root `README.md`.
+
+Deliberately excluded, because indexing them measurably buried real answers:
+
+| Excluded | Why |
+|---|---|
+| `skills/` | Procedures the agent is handed via slash commands, not knowledge. Long and dense with DS vocabulary: 17 of the top 25 hits for one design question were `SKILL.md` files. |
+| `docs/` | Setup and operational docs about DAWG itself, plus any in-progress working document left there. |
+| `distribution/` | Snippets meant to be pasted into other repos. |
+| `TEMPLATE.md`, `_template.md` | Placeholder text that matches queries about the real thing. |
+| `PROJECT-TODO.md`, dotfolders | Transient checklists; `.claude/CLAUDE.md` is already loaded into every session here. |
+
+The lists live in `SKIP_DIR_NAMES`, `SKIP_FILE_BASENAMES` and `SKIP_REL_PATHS` at the top of `rag-server/src/ingest.ts`. Changing any of them needs a full `reindex`. Excluded files are still readable on disk; they are just not retrieved.
 
 ## Note on Chroma vs “fully embedded”
 

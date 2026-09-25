@@ -11,4 +11,4 @@
 - Component audit criteria and Storybook doc requirements (or summarize from `design-system-doc-requirements.md` in each project).
 - Known UI bugs (carousel, inputs, layout) as you discover them.
 
-After adding files, run **`reindex`** with `filter_folder` `knowledge/design-system` if you only changed this subtree.
+After adding files, run **`reindex`** with `folder` set to `knowledge/design-system` if you only changed this subtree.
