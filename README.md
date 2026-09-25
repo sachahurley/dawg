@@ -1,5 +1,15 @@
 # DAWG
 
+**D.A.W.G. = Design Agent Workflow Guide.** A personal knowledge layer that keeps every agent grounded in your design decisions, working principles, and hard-won corrections, and learns more with every project it touches. Also, like any good dawg: loyal to one owner, fetches on command, remembers where everything is buried.
+
+Other expansions that fit, if you ever want to swap:
+
+- **Design Agent Workflow Guru**: the opinionated expert that has seen your mistakes before and will not let you repeat them.
+- **Design Agent Workflow Gateway**: the MCP framing; one gate every agent passes through to reach your knowledge.
+- **Design Assistant With Grounding**: the RAG framing; answers grounded in your KB, not generic blog advice.
+- **Design Agent Who Grows**: the learning loop; every correction and decision makes it smarter.
+- **Design Archive With Guardrails**: scoped memories, protected identity, no cross-context leakage.
+
 Local knowledge base + **RAG MCP server** for Cursor and Claude Code. Embeddings run on **Ollama**; vectors live in **ChromaDB** (local server). Nothing in this pipeline needs a cloud embedding API.
 
 ## Folder layout
