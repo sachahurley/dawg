@@ -69,6 +69,19 @@ launchctl load ~/Library/LaunchAgents/com.sachahurley.dawg-chroma.plist
 Logs land in `~/Library/Logs/dawg-chroma.log`. `npm run chroma:start` still works for an ad-hoc
 run, but do not use both at once: they both bind port 8000.
 
+**Check it after a reboot, and every few weeks regardless:**
+
+```bash
+cd rag-server && npm run doctor
+```
+
+That verifies the stack is not just running but *recoverable*: the LaunchAgent is loaded with
+`RunAtLoad` and the right working directory, both services answer, the index matches disk, and
+critically that `chroma` can still be executed. In September 2026 retrieval ran fine for weeks
+while being one restart from dead, because a repo rename had left the venv's shebangs pointing at
+a deleted interpreter. A live server and a working start command look identical while the server
+stays up; `npm run doctor` is what tells them apart.
+
 **The Python venv is bound to its absolute path.** Every console script in `rag-server/.venv/bin`
 carries a shebang pointing at the venv's own interpreter, so moving or renaming the repo breaks
 `chroma` with `bad interpreter` or `chroma: not found`. Recreate it rather than trying to patch it:
