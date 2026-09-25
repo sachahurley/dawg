@@ -57,6 +57,26 @@ The venv pins **Chroma 1.5.x** so it matches the **chromadb** npm client. If you
 
 **Optional:** If you already use Docker, you can run the official `chromadb/chroma` image on port **8000** instead and skip `chroma:install` / `chroma:start`.
 
+## Keep Chroma running
+
+Chroma is supervised by a LaunchAgent, so retrieval survives a reboot:
+
+```bash
+cp templates/com.sachahurley.dawg-chroma.plist ~/Library/LaunchAgents/
+launchctl load ~/Library/LaunchAgents/com.sachahurley.dawg-chroma.plist
+```
+
+Logs land in `~/Library/Logs/dawg-chroma.log`. `npm run chroma:start` still works for an ad-hoc
+run, but do not use both at once: they both bind port 8000.
+
+**The Python venv is bound to its absolute path.** Every console script in `rag-server/.venv/bin`
+carries a shebang pointing at the venv's own interpreter, so moving or renaming the repo breaks
+`chroma` with `bad interpreter` or `chroma: not found`. Recreate it rather than trying to patch it:
+
+```bash
+cd rag-server && npm run chroma:install
+```
+
 ## Build the MCP server
 
 ```bash

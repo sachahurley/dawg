@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Keeps the DAWG Chroma server running, so retrieval survives a reboot.
+
+  Install:
+    cp templates/com.sachahurley.dawg-chroma.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.sachahurley.dawg-chroma.plist
+
+  Stop / uninstall:
+    launchctl unload ~/Library/LaunchAgents/com.sachahurley.dawg-chroma.plist
+
+  WorkingDirectory is required, not cosmetic: the server is started with a relative
+  `--path .chromadb`, so without it Chroma would create an empty store wherever launchd
+  happened to start, and every search would come back empty against a healthy-looking server.
+
+  Do not run this at the same time as `npm run chroma:start`; both bind port 8000.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.sachahurley.dawg-chroma</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/sachahurley/Projects/dawg/rag-server/.venv/bin/chroma</string>
+    <string>run</string>
+    <string>--path</string>
+    <string>.chromadb</string>
+    <string>--host</string>
+    <string>localhost</string>
+    <string>--port</string>
+    <string>8000</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/sachahurley/Projects/dawg/rag-server</string>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/sachahurley/Library/Logs/dawg-chroma.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/sachahurley/Library/Logs/dawg-chroma.error.log</string>
+</dict>
+</plist>
