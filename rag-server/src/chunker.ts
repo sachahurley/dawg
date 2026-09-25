@@ -76,13 +76,19 @@ function splitOversizedBody(body: string): string[] {
   return out;
 }
 
-/** Split content into (h1, h2, body) sections on H2 boundaries. */
+/**
+ * Split content into (h1, h2, body) sections on H2 boundaries.
+ *
+ * A document with no headings at all yields a single section labelled "Full document"
+ * rather than "Introduction", since there is nothing for it to be an introduction to.
+ */
 function parseSections(content: string): Section[] {
   const lines = content.split(/\n/);
   const sections: Section[] = [];
   let currentH1 = "";
   let sectionH2 = "Introduction";
   let sectionLines: string[] = [];
+  let sawHeading = false;
 
   const push = () => {
     const body = sectionLines.join("\n").trim();
@@ -96,18 +102,21 @@ function parseSections(content: string): Section[] {
     const h2 = line.match(/^##\s+(.+)\s*$/);
     if (h1 && !line.startsWith("##")) {
       push();
+      sawHeading = true;
       currentH1 = h1[1]?.trim() ?? "";
       sectionH2 = "Introduction";
       continue;
     }
     if (h2) {
       push();
+      sawHeading = true;
       sectionH2 = h2[1]?.trim() ?? "Section";
       continue;
     }
     sectionLines.push(line);
   }
   push();
+  if (!sawHeading && sections.length === 1) sections[0]!.h2 = "Full document";
   return sections;
 }
 
@@ -132,16 +141,9 @@ export function chunkMarkdown(sourcePath: string, content: string): Chunk[] {
     });
   };
 
+  // Returns [] only for whitespace-only input, which has nothing to emit.
   const sections = parseSections(content);
-
-  if (sections.length === 0) {
-    const body = content.trim();
-    if (!body) return [];
-    // No headings at all: emit the document, splitting only if it is oversized.
-    const parts = body.length <= MAX_CHUNK_CHARS ? [body] : splitOversizedBody(body);
-    parts.forEach((p, i) => emit(p, "", "Full document", `c0_p${i}`));
-    return chunks;
-  }
+  if (sections.length === 0) return [];
 
   let pack: Section[] = [];
   let packChars = 0;

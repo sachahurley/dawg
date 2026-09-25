@@ -26,7 +26,7 @@ Audit the component file at `$ARGUMENTS` against every rule in CLAUDE.md and des
 
 ### 1. No Hardcoding
 
-Read `.claude/ds-config.json: tokens.classPrefix` to get the prefix (e.g., `Aura`, `Scorpion`). Scan for violations — these patterns are NEVER allowed in component code:
+Read `.claude/ds-config.json: tokens.classPrefix` to get the design system's component prefix. Scan for violations — these patterns are NEVER allowed in component code:
 
 **Flutter:**
 - Raw colors: `Color(0x`, `Colors.`, `Color.fromRGBO`, `Color.fromARGB`

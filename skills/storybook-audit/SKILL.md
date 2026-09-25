@@ -35,7 +35,7 @@ When `$ARGUMENTS` is empty, audit **all** storybook code:
 
 ## Checks
 
-Read `.claude/ds-config.json: tokens.classPrefix` (e.g., `Aura`) before running these checks. Replace `{prefix}` in all patterns with the actual prefix.
+Read `.claude/ds-config.json: tokens.classPrefix` (the design system's component prefix) before running these checks. Replace `{prefix}` in all patterns with the actual prefix.
 
 ### 1. No Hardcoded Colors
 

@@ -1,6 +1,6 @@
 # Flutter patterns (working notes)
 
-Applies to **Flutter** product and design-system work (e.g. Aura). Prefer the **product repo’s** conventions when they conflict with generic advice.
+Applies to **Flutter** product and design-system work. Prefer the **product repo’s** conventions when they conflict with generic advice.
 
 ## Composition
 

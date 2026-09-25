@@ -33,7 +33,7 @@ mcpServer.registerTool(
   "search_knowledge",
   {
     description:
-      "Semantic search across Sacha's local knowledge base. Call this before answering questions about Aura DS, process, product, Flutter, or personal working style.",
+      "Semantic search across Sacha's local knowledge base: design-system principles, process, product thinking, Flutter patterns, past decisions and corrections, and personal working style. Call this before answering from generic defaults.",
     inputSchema: {
       query: z.string().describe("Natural language search query"),
       top_k: z.number().int().min(1).max(30).optional().describe("Number of chunks to return (default 5)"),
@@ -163,11 +163,11 @@ mcpServer.registerTool(
       "Use for corrections, decisions, and project notes captured while working in any repo. " +
       "Writes only to knowledge/projects/ (or examples/ when universal=true, which requires Sacha's explicit confirmation first). Never writes to identity/.",
     inputSchema: {
-      context: z.enum(CONTEXTS).describe("Which world this belongs to: betterfly (work) or personal"),
+      context: z.enum(CONTEXTS).describe("Knowledge context. Only 'personal' exists: DAWG does not hold employer content."),
       project: z
         .string()
         .regex(/^[a-z0-9][a-z0-9-]*$/)
-        .describe("Project slug from .claude/dawg-project.json or knowledge/projects/registry.md, e.g. 'aura'"),
+        .describe("Project slug from .claude/dawg-project.json or knowledge/projects/registry.md, e.g. 'portfolio'"),
       type: z
         .enum(ENTRY_TYPES)
         .describe("correction (a mistake and its fix), decision (a settled choice with reasoning), or note (a project fact)"),
@@ -230,8 +230,8 @@ mcpServer.registerTool(
       "Load a project's standing profile plus its context's shared conventions in one call. " +
       "Use at the start of a session in a registered repo (see .claude/dawg-project.json) to get project-scoped context without composing search queries.",
     inputSchema: {
-      context: z.enum(CONTEXTS).describe("betterfly (work) or personal"),
-      project: z.string().describe("Project slug, e.g. 'aura' or 'dawg'"),
+      context: z.enum(CONTEXTS).describe("Knowledge context. Only 'personal' exists."),
+      project: z.string().describe("Project slug, e.g. 'portfolio' or 'dawg'"),
     },
   },
   async ({ context, project }) => {

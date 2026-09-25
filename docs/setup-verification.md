@@ -12,12 +12,19 @@ ollama list      # expect nomic-embed-text (or your configured embed model)
 
 ## 2. Chroma + build + index
 
-In **terminal A** (leave running while using RAG):
+Chroma should already be running under its LaunchAgent (see **Keep Chroma running** in the README).
+Confirm it, rather than starting a second one:
 
 ```bash
-cd /path/to/dawg/rag-server
-npm run chroma:start
+launchctl list | grep dawg-chroma     # expect a PID
+curl -s localhost:8000/api/v2/heartbeat
 ```
+
+If it is not loaded, install the plist from `templates/`. Only use `npm run chroma:start` for an
+ad-hoc run, and never at the same time as the LaunchAgent: both bind port 8000.
+
+If `chroma` reports `bad interpreter` or `command not found`, the venv's shebangs point at an old
+absolute path. Rebuild it: `cd rag-server && npm run chroma:install`.
 
 In **terminal B**:
 
