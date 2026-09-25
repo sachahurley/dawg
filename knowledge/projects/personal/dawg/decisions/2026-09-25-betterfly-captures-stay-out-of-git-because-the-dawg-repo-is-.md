@@ -1,6 +1,6 @@
 ## Situation
 
-`github.com/sachahurley/dawg` is a **public** repo. Seven weeks of `add_knowledge` output had accumulated uncommitted, including six `knowledge/projects/betterfly/aura-ds/decisions/` records. Those hold internal component API names, spec version numbers, internal doc paths, token decisions, and dated product decisions attributed to Sacha. (Deliberately not enumerated here: this file lives under `personal/dawg`, which is *not* gitignored, so naming them would leak exactly what the decision exists to withhold.)
+`github.com/sachahurley/dawg` is a **public** repo. Seven weeks of `add_knowledge` output had accumulated uncommitted, including six decision records under `knowledge/projects/betterfly/<work-project>/decisions/`. Those hold internal component API names, spec version numbers, internal doc paths, token decisions, and dated product decisions attributed to Sacha. (Deliberately not enumerated here: this file lives under `personal/dawg`, which is *not* gitignored, so naming them would leak exactly what the decision exists to withhold.)
 
 The fix-plan's Phase 3 said simply `git add knowledge/projects && git commit`, then push. That would have published all of it.
 
@@ -23,12 +23,12 @@ The pattern `betterfly/*/` matches project folders at any depth while leaving fi
 
 ## Superseded, same day
 
-**Sacha then chose to remove DAWG from the Aura work altogether**, which overtakes the gitignore
+**Sacha then chose to remove DAWG from the work project altogether**, which overtakes the gitignore
 approach below. The `betterfly` context no longer exists: `CONTEXTS` in `rag-server/src/write.ts` is
 `["personal"]` only, `knowledge/projects/betterfly/` is deleted, and the `.gitignore` rule this
 decision added has been removed as unnecessary.
 
-The six captured records were archived to `~/BF-Work/dawg-aura-captures-archive/` rather than
+The six captured records were archived to `~/BF-Work/dawg-work-captures-archive/` rather than
 deleted, so the reasoning survives outside the public repo.
 
 Keep reading for the original reasoning, which still explains *why* the boundary exists. What
@@ -42,7 +42,7 @@ hold, prefer making the wrong thing impossible over making it discouraged.
 
 Two standing consequences:
 
-- Anything that writes quoted material into this repo needs the same scrutiny. A future transcript-harvest feature would write excerpts into `knowledge/inbox/`, and the largest transcripts on this machine are `aura_ds` sessions.
+- Anything that writes quoted material into this repo needs the same scrutiny. A future transcript-harvest feature would write excerpts into `knowledge/inbox/`, and the largest transcripts on this machine are work-project sessions.
 - Check repo visibility before committing captures in any project, not just this one. The fix-plan was written by someone who knew the content and still missed it.
 
 ---
